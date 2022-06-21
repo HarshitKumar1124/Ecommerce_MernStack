@@ -1,0 +1,6 @@
+
+bycryptjs - Responsible for Password Hashing
+
+nodemailer - Responsile for OTP Or Gmail link generator in case of Forgot Password
+
+validator - For checking Parameters are rightly given or not by user. Eg: Number of phone is 10 or not.. Mail ID has @ or not
