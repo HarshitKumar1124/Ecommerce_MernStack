@@ -251,3 +251,136 @@ exports.resetPassword=CatchAsyncErrors(async(req,res,next)=>{
 
 
 })
+
+
+
+
+//Get User Info i.e. Profile
+exports.getUserDetails = CatchAsyncErrors(async(req,res,next)=>{
+
+    const user = await User.findById(req.user.id)
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+})
+
+
+//Updating the Password -- for which you must have to be logged in
+
+exports.UpdatePassword = CatchAsyncErrors(async(req,res,next)=>{
+
+    const target_user = await User.findById(req.user.id).select('+password')
+
+    const isMatchedPassword = await target_user.comparePassword(req.body.OldPassword);
+
+    if(!isMatchedPassword)
+    return next(new ErrorHandler("Old Password is Incorrect",401))
+
+    if(req.body.NewPassword !== req.body.confirmPassword)
+    return next(new ErrorHandler("Password Doesn't match",401));
+
+    target_user.password = req.body.NewPassword;
+    target_user.visible_password = req.body.NewPassword;
+
+    await target_user.save();
+
+    sendToken(target_user,200,res);
+
+
+})
+
+
+
+//Updating User Profile except Password  -- Only for Logged In Person
+exports.UpdateProfile = CatchAsyncErrors(async(req,res,next)=>{
+
+    let target_user = await User.findById(req.user.id);
+
+    if(!target_user)
+    return next(new ErrorHandler("Please Login In First",401));
+
+    target_user = await User.findByIdAndUpdate(req.user.id,req.body,{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+    })
+
+    res.status(200).json({
+        success:true,
+        target_user
+    })
+})
+
+
+
+//Get All Users Info --Only Admin
+exports.GetAllUser = CatchAsyncErrors(async(req,res,next)=>{
+
+    const AllUsers = await User.find();
+
+    res.status(200).json({
+        AllUsers
+    })
+
+})
+
+//Get Specific User Info  --Only Admin
+exports.GetSingleUserInfo = CatchAsyncErrors(async(req,res,next)=>{
+
+    const SingleUserInfo = await User.findById(req.params.id);
+
+    if(!SingleUserInfo)
+    return next(new ErrorHandler("User Not Found",401));
+
+
+
+    res.status(200).json({
+        SingleUserInfo
+    })
+
+})
+
+
+
+//Update User's Role Type   --OnlyADMIN 
+exports.UpdateRole = CatchAsyncErrors(async(req,res,next)=>{
+
+ const NewData = {
+    email:req.body.email,
+    name:req.body.name,
+    UserType:req.body.UserType
+ }
+
+ const user_target = await User.findByIdAndUpdate(req.params.id,req.body,{
+    new:true,
+        runValidators:true,
+        useFindAndModify:false
+ })
+
+ await user_target.save();
+
+ res.status(200).json({
+    success:true,
+    user_target
+ })
+
+})
+
+//Delete User   --OnlyADMIN 
+exports.DeleteUser = CatchAsyncErrors(async(req,res,next)=>{
+
+    const user_target = await User.findById(req.params.id)
+   
+    if(!user_target)
+    return next(new ErrorHandler("User Not Found",401));
+
+    await user_target.deleteOne();
+   
+    res.status(200).json({
+       success:true,
+       message:"User Removed Successfully"
+    })
+   
+   })
