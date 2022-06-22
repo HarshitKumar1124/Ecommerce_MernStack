@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router();
 
-const {RegisterUser,LoginUser,LogOutUser, forgotPassword,resetPassword, getUserDetails,UpdatePassword, UpdateProfile,GetAllUser,GetSingleUserInfo,DeleteUser,UpdateRole} = require('../controller/UserController');
+const {RegisterUser,LoginUser,LogOutUser, forgotPassword,resetPassword, getUserDetails,UpdatePassword, UpdateProfile,GetAllUser,GetSingleUserInfo,DeleteUser,UpdateRole, CreateProductReview, GetSingleProductReviews,DeleteSingleProductReviews} = require('../controller/UserController');
 
 const {IsUserAuthenticated, AuthoriseRole} = require('../middleware/IsUserAuthenticated')
 
@@ -45,6 +45,18 @@ router.route("/admin/update_role/:id").put(IsUserAuthenticated,AuthoriseRole("ad
 
 //Delete The User   --ADMIN Only
 router.route("/admin/delete_user/:id").delete(IsUserAuthenticated,AuthoriseRole("admin"),DeleteUser);
+
+
+//Add/Update Product Reviews   --Only Logged In
+router.route("/review").put(IsUserAuthenticated,CreateProductReview)
+
+
+//getting reviews of specific Product   --All
+router.route("/review/:productID").get(GetSingleProductReviews);
+
+
+//Deleting reviews of specific Product   --LOGGED INN
+router.route("/review/:productID").delete(IsUserAuthenticated, DeleteSingleProductReviews);
 
 
 

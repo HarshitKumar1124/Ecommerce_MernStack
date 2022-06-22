@@ -125,3 +125,7 @@ exports.GetSingleProductDetail = CatchAysncError(async (req,res,next)=>{
         product
     })
 });
+
+
+
+

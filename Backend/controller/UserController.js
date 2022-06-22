@@ -14,9 +14,12 @@ const mongoose=require('mongoose')
 
 const sendRESETEmail = require('../utils/SendResetEmail')
 
+const Product = require("../models/productModel")
+
 
 //Using Crypto for ResetPassword feature for Token Hashing
 const crypto = require('crypto') // build-in module in NODE
+const { Console } = require('console')
 
 
 //Register a User
@@ -384,3 +387,150 @@ exports.DeleteUser = CatchAsyncErrors(async(req,res,next)=>{
     })
    
    })
+
+
+
+//Add/Update the Product Review    --Only who are logged In
+exports.CreateProductReview=CatchAsyncErrors(async(req,res,next)=>{
+  
+    console.log("rievew",req.body.productID)
+ 
+    const current_review ={
+        user_Id:req.user.id,
+        name:req.user.name,
+        rating:Number(req.body.rating),
+        comment:req.body.comment
+    }
+
+    const target_product = await Product.findById(req.body.productID)
+
+    console.log(target_product)
+
+    console.log("Product review ",target_product.reviews);
+
+    let isReviewed=false;
+
+    await target_product.reviews.forEach((rev)=> {
+    
+        console.log(rev.user_Id.toString(),req.user._id.toString())
+        
+        if(rev.user_Id.toString()==req.user._id.toString())
+        isReviewed=true;
+
+    });
+
+    let review_status="Added";
+    console.log(isReviewed)
+    
+    if(isReviewed)
+    {
+        review_status = "Updated"
+        console.log(isReviewed)
+        //if already reveiwed then update the previous review by new one
+
+        target_product.reviews.forEach((rev)=>{
+
+
+            console.log(rev.user_Id.toString(),req.user.id.toString())
+
+            if(rev.user_Id.toString()===req.user.id.toString())
+            (rev.rating = current_review.rating),(rev.comment = current_review.comment);
+                
+            
+        })
+
+    }
+    else
+    {
+
+        //creatig new Review if not existing for specific user
+        target_product.reviews.push(current_review)
+        console.log("review added",target_product.reviews,current_review)
+        target_product.numberOfReviews = target_product.reviews.length;
+
+
+       
+    }
+
+    let sum=0;
+    target_product.reviews.forEach((rev)=>{
+       sum=sum + parseInt(rev.rating);
+       console.log(rev.rating , sum)
+   });
+   
+
+   target_product.rating =sum /target_product.numberOfReviews;
+
+
+
+    await target_product.save();
+
+
+    res.status(200).json({
+        success:true,
+        message:review_status
+    })
+
+})
+
+
+
+//get All reviews Of the Specific Product
+exports.GetSingleProductReviews = CatchAsyncErrors(async(req,res,next)=>{
+
+    const product_target = await Product.findById(req.params.productID);
+
+    if(!product_target)
+    return next(new ErrorHandler("Product Not Found",401));
+
+    res.status(200).json({
+        REVIEW:product_target.reviews
+    })
+})
+
+
+//Delete reviews Of the Specific Product
+exports.DeleteSingleProductReviews = CatchAsyncErrors(async(req,res,next)=>{
+
+    const product_target = await Product.findById(req.params.productID);
+
+    if(!product_target)
+    return next(new ErrorHandler("Product Not Found",401));
+
+   
+    const AllReviews = product_target.reviews.filter((rev)=>{
+
+       
+        return ( rev.user_Id.toString() !== req.user.id.toString() );
+
+    })
+
+   
+
+    product_target.reviews = AllReviews;
+
+    //after deleting reflecting changes in  rating and Number of Reviews field
+   
+    
+    let sum=0;
+
+
+    AllReviews.forEach((rev)=>{
+        sum+=rev.rating;
+    })
+
+
+    product_target.numberOfReviews -=1;
+
+    product_target.rating = sum /  product_target.numberOfReviews;
+
+    await product_target.save()
+
+    res.status(200).json({
+        REVIEW:product_target.reviews
+    })
+})
+
+
+
+
