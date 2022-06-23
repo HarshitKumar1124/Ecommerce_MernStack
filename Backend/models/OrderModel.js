@@ -57,10 +57,10 @@ const OrderSchema = new mongoose.Schema({
     }],
 
 
-    user:{
+    user_created:{
       
         type:mongoose.Schema.ObjectId,
-        ref:"Product",
+        ref:"User",
         required:true
     },
 

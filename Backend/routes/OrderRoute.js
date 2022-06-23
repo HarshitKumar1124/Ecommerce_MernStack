@@ -14,11 +14,11 @@ router.route("/order/new").post(IsUserAuthenticated, NewOrder)
 
 
 //To see specific order's details of user own   --Logged Inn
-router.route("/order/:id").get(IsUserAuthenticated,getSingleOrder);
+router.route("/order/:id").get(IsUserAuthenticated ,AuthoriseRole("admin"),getSingleOrder);
 
 
 //See All Orders placed by User himself   --Logged Inn
-router.route("/order/Myorder").get(IsUserAuthenticated,MyOrder);
+router.route("/orders/Myorder").get(IsUserAuthenticated, MyOrder);
 
 
 module.exports = router;
