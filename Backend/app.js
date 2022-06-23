@@ -28,4 +28,10 @@ const cookieParser = require("cookie-parser")
 
 app.use(cookieParser());
 
+
+//Route Import for Orders
+const Orders = require("./routes/OrderRoute")
+
+app.use('/api/v1',Orders)
+
 module.exports = app;
