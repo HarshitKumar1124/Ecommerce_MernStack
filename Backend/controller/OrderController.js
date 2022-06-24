@@ -81,3 +81,91 @@ exports.MyOrder = CatchAysncError(async(req,res,next)=>{
 
 
 })
+
+
+
+//Get List Of All Orders   --ADMIN
+exports.getAllOrders = CatchAysncError(async(req,res,next)=>{
+
+    const AllOrders = await Order.find();
+
+    if(AllOrders.length ==0)
+    return next(new ErrorHandler("No Orders Placed On App",201));
+
+    res.status(200).json({
+        AllOrders
+    })
+})
+
+
+
+
+// // ************************************************************************************
+
+
+
+async function UpdateStock(productId , StockCount){
+    const product_target = await Product.findById(productId);
+
+    product_target.stock-=StockCount;
+
+    await product_target.save();
+
+
+}
+
+
+//Update The Status Of Order i.e. Shipped or Processing or Delivered    --ADMIN
+exports.UpdateOrder = CatchAysncError(async (req,res,next)=>{
+
+    const target_order = await Order.find({id:req.body.id});
+
+    if(!target_order)
+    return next(new ErrorHandler("No Order Found With Such ID",404));
+
+    if(target_order.OrderStatus ==="Delivered")
+    return next(new ErrorHandler("This Order has already been Delivered !",400));
+
+     
+    target_order.OrderItem.forEach(async(orders__) =>{
+
+        await UpdateStock(orders__.product,order.quantity)
+    })
+
+    target_order.OrderStatus = req.body.status;
+
+    if(req.body.status =="Delivered")
+    target_order.deliveredAt = Date.now();
+
+
+    await target_order.save();
+
+    res.status(200).json({
+        
+        success:true,
+        message: "Status Updated",
+        target_order
+    })
+
+
+
+})
+
+
+// // ***************************************************************************************
+
+// //Delete Any Order --ADMIN
+// exports.DeleteOrder = CatchAysncError(async(req,res,next)=>{
+
+//     const Target_order = await Order.findById(req.params.id);
+
+//     if(!Target_order)
+//     return next(new ErrorHandler("Order Not In Record ",401));
+
+//     Target_order.deleteOne();
+
+//     res.status(200).json({
+//         success:true,
+//         message:"Order Deleted SuccessFully !"
+//     })
+// })
