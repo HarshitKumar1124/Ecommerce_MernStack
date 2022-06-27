@@ -13,7 +13,7 @@ const Header = () => {
     burgerColor="black"
     logo={logo}
     logoWidth="20vmax"
-    navColor1="rgba(0,0,0,0.4)"
+    navColor1="rgba(255,255,255)"
     logoHoverSize="10px"
     logoHoverColor="#eb4034"
     link1Text = "Home"
