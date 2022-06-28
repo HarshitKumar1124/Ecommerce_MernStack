@@ -30,6 +30,8 @@ exports.getAllProduct=CatchAysncError(async(req,res)=>{
 
     const ProductToShow_PerPage = 5;
 
+    const product_count = await Product.countDocuments();
+
     const Apifeature = new ApiFeatures(Product.find(),req.query).search().filter().pagination(ProductToShow_PerPage);
     // const Allproducts = await Product.find();
     //  or we cn write now as:
@@ -44,9 +46,10 @@ exports.getAllProduct=CatchAysncError(async(req,res)=>{
     }
 
      
- res.status(200).json({success:true,
-            
-    Allproducts
+ res.status(200).json({
+    success:true,        
+    Allproducts,
+    productsCount:product_count
   });
 
 });
