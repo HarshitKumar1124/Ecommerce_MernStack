@@ -12,10 +12,13 @@ export const getProduct = async(dispatch)=>{
 
         console.log("ssssss")
         const ProductsDB= await axios.get("/api/v1/products")
-        console.log(ProductsDB )
-        console.log(ProductsDB.data)
+    
+        // console.log(ProductsDB )
+         console.log(ProductsDB.data)
         
         console.log(ProductsDB.data.Allproducts)
+
+       
 
         dispatch({
             type:All_Product_success,
@@ -24,9 +27,14 @@ export const getProduct = async(dispatch)=>{
 
     }catch(error)
     {
+
+       console.log("err",error)
+
         dispatch({
             type:All_Product_fail,
-            payload: error.response.data.message
+            payload: error.response.data.message,
+
+            
         })
     }
 }

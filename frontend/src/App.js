@@ -8,6 +8,7 @@ import Home from "./components/Home/Home.js"
 import Product from "./components/Product/Product.js"
 import Contact from "./components/Contact/Contact.js"
 import About from "./components/About/About.js"
+import Loader from "./components/Loader/Loader.js";
 
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
     <Router>
       <Header/>
       <Home/>
-      {/* <Route exact path="/" element={<Home/>} /> */}
+      
+      {/* <Route exact path="/sad" element={<Loader/>} /> */}
       {/* <Route exact path="/product" component={Product}/>
       <Route exact path="/contact" component={Contact}/>
       <Route exact path="/about" component={About}/> */}
