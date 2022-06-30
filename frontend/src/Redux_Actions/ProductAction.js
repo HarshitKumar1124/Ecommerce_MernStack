@@ -11,18 +11,18 @@ export const getProduct = async(dispatch)=>{
         })
 
         console.log("ssssss")
-        const ProductsDB= await axios.get("/api/v1/products")
+        const {data}= await axios.get("/api/v1/products")
     
         // console.log(ProductsDB )
-         console.log(ProductsDB.data)
-        
-        console.log(ProductsDB.data.Allproducts)
+        //  console.log(ProductsDB.data)
+        console.log(data)
+        // console.log(ProductsDB.data.Allproducts)
 
        
 
         dispatch({
             type:All_Product_success,
-            payload: ProductsDB.data
+            payload: data
         })
 
     }catch(error)

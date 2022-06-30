@@ -9,8 +9,9 @@ export const productReducer = (state={products:[]},action)=>{
             
             return{
                 loading:true,
-                products:[]
+                product:[]
             }
+
         case All_Product_fail:
         
             return{
@@ -21,7 +22,7 @@ export const productReducer = (state={products:[]},action)=>{
         
             return{
                 loading:false,
-                error:action.payload.Allproducts,
+                product:action.payload.Allproducts,
                 productsCount:action.payload.productsCount
             } 
         case Clear_errors:

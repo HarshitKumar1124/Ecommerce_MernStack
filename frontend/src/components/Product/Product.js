@@ -11,7 +11,7 @@ const Product = ({Product}) => {
     edit:false,
     color:"rgba(20,20,20,0.1)",
     activeColor:"tomato",
-    value:2.5,
+    value:Product.rating,
     isHalf:true,
     size: window.innerWidth <600 ? 20:25
   }
@@ -26,7 +26,7 @@ const Product = ({Product}) => {
 
         <div>
           <ReactStar {...options} />
-          <span>Total Count Of Reviews - 256</span>
+          <span>Total Count Of Reviews - {Product.numberOfReviews}</span>
         </div>
 
         <span>RS - {Product.price}/-</span>
