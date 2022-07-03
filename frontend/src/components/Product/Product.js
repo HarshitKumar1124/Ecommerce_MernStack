@@ -20,7 +20,7 @@ const Product = ({Product}) => {
   return (
   
      <>
-     <Link className='ProductCard' style={{border:"1px solid Black"}} to="https://www.google.com">
+     <Link className='ProductCard' style={{border:"1px solid Black"}} to={`/products/${Product._id}`}>
         <img src={logo} alt={Product.name} title={Product.name}/>
         <p>{Product.name}</p>
 

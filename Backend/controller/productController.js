@@ -25,9 +25,9 @@ exports.CreateProduct = CatchAysncError(async(req,res,next)=>{
 });
 
 //Get List Of All Products
-exports.getAllProduct=CatchAysncError(async(req,res)=>{
+exports.getAllProduct=CatchAysncError(async(req,res,next)=>{
 
-
+   
     const ProductToShow_PerPage = 5;
 
     const product_count = await Product.countDocuments();

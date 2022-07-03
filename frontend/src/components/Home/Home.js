@@ -1,4 +1,4 @@
-import React, { Profiler, useEffect } from "react";
+import React, { useEffect } from "react";
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
 import ProductCard from "../Product/Product";
@@ -9,16 +9,27 @@ import Loader from "../Loader/Loader.js"
 //redux use useSelector and Dispatch to fetch data from redux state
 import { useDispatch, useSelector } from "react-redux";
 
+import {useAlert} from "react-alert"
+
 const Home = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getProduct);
-  }, [dispatch]);
+  const alert = useAlert();
 
-  const { loading, error,product, productsCount } = useSelector(
+  
+  const { loading,error,product, productsCount } = useSelector(
     (state) => state.products
   );
+  
+  useEffect(() => {
+
+    if(error)
+    return alert.error(error);
+    
+     dispatch(getProduct);
+  }, [dispatch,error,alert]);
+
+
 
 
 
@@ -32,7 +43,7 @@ const Home = () => {
   // console.log(Listof_ALL_DB_Products,Total_Product_count)
 
   const Temp_product = {
-    name: "Laptop",
+    name: "RELOAD-THE-PAGE",
     price: 3000,
     id: "LapTop",
     images: [
@@ -42,10 +53,7 @@ const Home = () => {
       },
     ],
   };
-
- 
-
- 
+  
 
   return (
     <>
@@ -66,22 +74,17 @@ const Home = () => {
       <h2 className="HomeHeading">Featured Products</h2>
 
       <div className="container" id="container">
-        {/* {
-                  product.map((product_item)=>{
-                    return <ProductCard Product = {product_item} key={product_item._id} />
-                  })
-    
-        } */}
-
+        
+      {
+        typeof(product)==="undefined" ? <ProductCard Product={Temp_product} />:(
+          product.map(item=>{
+            return <ProductCard Product={item} key={item._id} />;
+          })
+        )
+      }
        
 
-        <ProductCard Product={Temp_product} />
-      <ProductCard Product={Temp_product} />
-      <ProductCard Product={Temp_product} />
-      <ProductCard Product={Temp_product} />
-      <ProductCard Product={Temp_product} />
-      <ProductCard Product={Temp_product} />
-      <ProductCard Product={Temp_product} />
+     
       </div>
       </>)
      }

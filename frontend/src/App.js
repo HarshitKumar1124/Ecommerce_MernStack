@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import Webfont from "webfontloader";
 import Footer from "./components/Footer/Footer.js";
 import Home from "./components/Home/Home.js";
-import Product from "./components/Product/Product.js";
+import ProductDetails from "./components/Product/ProductDetails.js";
 import Contact from "./components/Contact/Contact.js";
 import About from "./components/About/About.js";
 import Loader from "./components/Loader/Loader.js";
@@ -32,7 +32,7 @@ function App() {
       <Routes>                                                        //Switch is replaced By Routes from React-router-dom --v6
         <Route exact path="/" element={<Home/>} />
         <Route exact path="/loader" element={<Loader />} />
-        <Route exact path="/product" element={<Loader/>} />
+        <Route exact path="/products/:id" element={<ProductDetails/>} />
         <Route exact path="/contact"  element={<Contact/>} />
         <Route exact path="/about"  element={<About/>} />
       </Routes>
