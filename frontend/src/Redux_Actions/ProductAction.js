@@ -47,7 +47,12 @@ export const ClearError=()=>async(dispatch)=>{
     })
 }
 
+
+
+
 export const getProductDetails = (id)=> async(dispatch)=>{
+
+console.log("Get details")
 
     try{
 

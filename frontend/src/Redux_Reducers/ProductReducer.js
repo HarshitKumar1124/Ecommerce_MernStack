@@ -60,7 +60,7 @@ export const productDetailsReducer = (state={products:{}},action)=>{
         
             return{
                 loading:false,
-                product:action.payload
+                productDetail:action.payload
                 
             } 
         case Clear_errors:
