@@ -1,0 +1,66 @@
+.ProductDetails{
+    border:5px solid black;
+    width:100vw;
+    max-width: 100%;
+    padding: 6vmax;
+    box-sizing: border-box;
+    background-color: rgb(204, 200, 200);;
+    display: flex;
+
+}
+
+.ProductDetails > div{
+   
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2vmax;
+    box-sizing: border-box;
+}
+
+.ProductDetails >div:last-child{
+    align-items: flex-start;
+}
+
+.DetailBlock-2  {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,.25) !important;
+    border-bottom: 1px solid rgba(0,0,0,.25) !important ;
+    width:70%;
+    padding: 1vmax;
+}
+
+
+
+.DetailBlock-1 > h2{
+    color: rgb(54, 54, 54);
+    font:600 1.6vmax "Roboto"
+}
+
+.DetailBlock-1 > p{
+    color: rgba(54, 54, 54, .582);
+    font: 200 1vmax cursive;
+}
+
+
+.DetailBlock-2 >span{
+    /* color: rgba(54, 54, 54, .582); */
+    font: 200 1vmax cursive;
+    margin-left: 1vmax ;
+
+}
+
+.DetailBlock-3{
+    width: 70%;
+}
+
+.DetailBlock-3 > h1{
+    color:rgba(17,17,17,.798);
+    font:400 1.8vmax "Frankin Gothic";
+    margin: 1vmax 0;
+}
