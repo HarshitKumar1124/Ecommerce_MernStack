@@ -64,7 +64,7 @@ let options = {
                     }
     
                     </div>
-                  </div>
+                </div>
     
                   <div style={{border:"3px solid yellow"}}>
                     <div className='DetailBlock-1' style={{border:"3px solid red"}}>
@@ -84,7 +84,7 @@ let options = {
                      
                     <div className='DetailBlock-3' style={{border:"3px solid black"}}> 
     
-                      <h1>Price - Rs {productDetail.price}/-</h1>
+                      <h1> ₹ {productDetail.price}/-</h1>
     
                       <div className='DetailBlock-3-1'>
     
@@ -93,7 +93,7 @@ let options = {
                           <button>-</button>
                           <input type="number" value="1"/>
                           <button>+</button>
-                          <input type="number" value="1"/>
+                          {/* <input type="number" value="1"/> */}
                         </div>
     
                         <button>ADD TO CART</button>
@@ -101,8 +101,8 @@ let options = {
                       </div>
     
                       <p>
-                        <b className= {productDetail.stock<1 ?"redcolor" :'greenColor'}>
-                          {productDetail.stock <1 ? "OUT OF STOCK !!" :`STOCK LEFT - ${productDetail.stock}`}
+                        <b className= {productDetail.stock<1 ?"redcolor" :'greencolor'}>
+                          <span style={{color:"rgba(0,0,0,0.651)"}}>Status</span>: {productDetail.stock <1 ? "Out Of Stock !!" : "Instock"}
     
                         </b>
                       </p>
@@ -117,7 +117,7 @@ let options = {
                     <button className='submitReview'>SUBMIT REVIEW</button>
     
     
-                  </div>
+                </div>
               
               
               </>)}
