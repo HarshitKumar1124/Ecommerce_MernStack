@@ -4,7 +4,7 @@
     max-width: 100%;
     padding: 6vmax;
     box-sizing: border-box;
-    background-color: rgb(204, 200, 200);;
+    /* background-color: rgb(204, 200, 200);; */
     display: flex;
 
 }
@@ -161,6 +161,84 @@
 .submitReview:hover{
     background-color: rgb(197,68,45);
     transform: scale(1.1);
+}
+
+
+
+.noReviews{
+    font:400 1.3vmax "Gill Sans";
+    text-align: center;
+    color: rgba(0,0,0,0.548);
+    padding:1.5vmax 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.74);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.74);
+    margin: 1vmax;
+    
+
+}
+
+.reviewsHeading > h1{
+ color:#000000be;
+ font: 500 1.4vmax 'Roboto';
+ text-align: center;
+ border-bottom: 1px solid rgba(0,0,0,.226);
+ padding:1vmax;
+ margin: auto;
+ width: 20vmax;
+ margin-bottom: 4vmax;
+}
+
+.ReviewContainer{
+    border: 2px solid black;
+    display: flex;
+
+    /* flex property is used to not adjust the all flex item in single row */
+    flex: none;
+
+    /* for movable scroll bar to hide overflow elements within scrollbar */
+    overflow-x:scroll hidden;
+
+}
+
+.reviewCard{
+
+    
+    box-shadow: 0 0 5px rgba(0,0,0,0.225);
+    border: 1px solid rgba(0,0,0,0.225);
+    width: 30vmax;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1vmax;
+    padding: 3vmax;
+   
+}
+
+.reviewCard >img{
+    width: 7vmax;
+    border-radius: 50px;
+}
+
+.reviewCard > p{
+    color: rgba(0,0,0,.725);
+    margin:1vmax;
+    font: 600 0.9vmax 'Roboto';
+}
+
+.reviewCard > span{
+    color:rgba(0,0,0,.5);
+    font: 300 0.8vmax cursive;
+    width: 100%;
+    /* to move text into next line within given dimention */
+    word-wrap: break-word;
+
+    text-align: center;
+    padding: 1vmax ;
+    border: 2px solid greenyellow;
+    height: 1.5vmax;
+    overflow: hidden;
+
+   
 }
 
 @media screen and (max-width:1062px) {

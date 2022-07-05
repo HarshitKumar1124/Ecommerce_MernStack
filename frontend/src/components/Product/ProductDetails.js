@@ -1,17 +1,23 @@
-import React,{useEffect} from 'react'
+import React,{Fragment, useEffect} from 'react'
 // import Carousel from "react-material-ui-carousel"
 
 import "./ProductDetails.css"
 
 import {useDispatch,useSelector} from  "react-redux"
-import { getProductDetails } from '../../Redux_Actions/ProductAction'
+import { ClearError, getProductDetails } from '../../Redux_Actions/ProductAction'
 
 import MetaData from "../Layout/MetaData";
 import Loader from '../Loader/Loader'
 
 import Reactstart from "react-rating-stars-component"
 
+import ReviewCard from './ReviewCard.js'
+
+import {useAlert} from "react-alert"
+
 const ProductDetails = ({match}) => {
+
+  const alert = useAlert();
 
   const dispatch = useDispatch();
 
@@ -19,6 +25,12 @@ const ProductDetails = ({match}) => {
   console.log("hi",match)
 
   useEffect(() => {
+
+    if(error)
+    {
+      alert.error(error);
+      dispatch(ClearError())
+    }
    
   dispatch(getProductDetails("62a6ed178f5ebe46cb07d5f5"))
 
@@ -42,10 +54,10 @@ let options = {
                  
             
             {
-              loading?<Loader/> :(<>
+              loading?<Loader/> :(<Fragment>
               <MetaData title="Product | Shefali Maam" />
               {
-              typeof(productDetail)==="undefined" ? <h1>Please Wait</h1>:(<>
+              typeof(productDetail)==="undefined" ? <h1>Please Wait</h1>:(<Fragment>
               
                 <div style={{border:"3px solid green"}}>
                     
@@ -120,15 +132,40 @@ let options = {
                 </div>
               
               
-              </>)}
-              
-                </>
+              </Fragment>)}
+
+                </Fragment>
               )
             }
 
-     
-
         </div>
+        
+        <div className='reviewsHeading'>
+          <h1>Reviews</h1>
+          <div className='ReviewContainer'>
+            {
+              typeof(productDetail)==="undefined" ? <p className='noReviews'>Loading Reviews</p>:(<Fragment>
+                
+                {
+                  productDetail.numberOfReviews==0?<p className='noReviews'>No Reviews Yet!</p>:(
+ 
+                    <Fragment>
+                      {
+                         productDetail.numberOfReviews>0 && productDetail.reviews.map((item)=>{
+                          return <ReviewCard ReviewSample={item} />
+                       })
+                      }
+                    </Fragment>
+                  )
+                 
+                }
+              </Fragment>)
+            }
+            </div>
+        </div>
+
+
+
     </>
   )
 }
