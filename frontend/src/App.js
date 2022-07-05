@@ -9,6 +9,7 @@ import ProductDetails from "./components/Product/ProductDetails.js";
 import Contact from "./components/Contact/Contact.js";
 import About from "./components/About/About.js";
 import Loader from "./components/Loader/Loader.js";
+import AllProducts from "./components/Product/AllProducts.js";
 
 function App() {
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
       <Routes>                                                        //Switch is replaced By Routes from React-router-dom --v6
         <Route exact path="/" element={<Home/>} />
         <Route exact path="/loader" element={<Loader />} />
+        <Route exact path="/products" element={<AllProducts/>} />
         <Route exact path="/products/:id" element={<ProductDetails/>} />
         <Route exact path="/contact"  element={<Contact/>} />
         <Route exact path="/about"  element={<About/>} />
