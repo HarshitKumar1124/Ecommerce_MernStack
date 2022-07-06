@@ -15,14 +15,20 @@ import ReviewCard from './ReviewCard.js'
 
 import {useAlert} from "react-alert"
 
-const ProductDetails = ({match}) => {
+
+//to fetch parameters from URL
+import { useParams } from 'react-router-dom';
+
+const ProductDetails = () => {
 
   const alert = useAlert();
 
   const dispatch = useDispatch();
 
+  const fetchParams = useParams();
+
   const {productDetail,loading,error} = useSelector((state)=> state.productDetails)
-  console.log("hi",match)
+  console.log("hi",error)
 
   useEffect(() => {
 
@@ -32,7 +38,9 @@ const ProductDetails = ({match}) => {
       dispatch(ClearError())
     }
    
-  dispatch(getProductDetails("62a6ed178f5ebe46cb07d5f5"))
+
+
+  dispatch(getProductDetails(fetchParams.id));
 
   }, [dispatch])
 

@@ -2,16 +2,16 @@ import axios from "axios"
 import { All_Product_Request,Product_Details_Request,Product_Details_fail,Product_Details_success,All_Product_fail,All_Product_success ,Clear_errors} from "../Redux_Constants/ProductConstants";
 
 
-export const getProduct = async(dispatch)=>{
+export const getProduct = (keyword="")=>async(dispatch)=>{
 
     try{
-
+        console.log("hiiiiiiiiiis")
         dispatch({
             type:All_Product_Request
         })
 
         console.log("ssssss")
-        const {data}= await axios.get("/api/v1/products")
+        const {data}= await axios.get(`/api/v1/products?keyword=${keyword}`)
     
         // console.log(ProductsDB )
         //  console.log(ProductsDB.data)

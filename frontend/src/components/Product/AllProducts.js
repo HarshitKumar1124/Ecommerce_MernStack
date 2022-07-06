@@ -6,8 +6,18 @@ import { ClearError , getProduct } from '../../Redux_Actions/ProductAction';
 import ProductCard from './Product';
 import MetaData from "../Layout/MetaData";
 
+import {useParams} from "react-router-dom"
+
+
+//inerting pagination
+import Pagination from 'react-js-pagination'
+
 
 const AllProducts = () => {
+
+    const fetchParams = useParams();
+
+   console.log("hiii",fetchParams.keyword)
 
     const dispatch = useDispatch();
 
@@ -17,9 +27,9 @@ const AllProducts = () => {
 
     useEffect(()=>{
 
-        dispatch(getProduct);
+        dispatch(getProduct(fetchParams.keyword));
       
-    },[dispatch])
+    },[dispatch,fetchParams.keyword])
 
 
 

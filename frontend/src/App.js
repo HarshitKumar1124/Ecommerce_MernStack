@@ -11,6 +11,8 @@ import About from "./components/About/About.js";
 import Loader from "./components/Loader/Loader.js";
 import AllProducts from "./components/Product/AllProducts.js";
 
+import Search from "./components/Product/Search.js"
+
 function App() {
   useEffect(() => {
     Webfont.load({
@@ -28,6 +30,7 @@ function App() {
 
   return (
     <Router>
+      
       <Header />
 
       <Routes>                                                        //Switch is replaced By Routes from React-router-dom --v6
@@ -37,6 +40,9 @@ function App() {
         <Route exact path="/products/:id" element={<ProductDetails/>} />
         <Route exact path="/contact"  element={<Contact/>} />
         <Route exact path="/about"  element={<About/>} />
+
+        <Route  exact path="/search" element={<Search/>}/>
+        <Route   path="/product/:keyword" element={<AllProducts/>} />
       </Routes>
 
       <Footer />

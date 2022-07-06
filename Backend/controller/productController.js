@@ -26,16 +26,19 @@ exports.CreateProduct = CatchAysncError(async(req,res,next)=>{
 
 //Get List Of All Products
 exports.getAllProduct=CatchAysncError(async(req,res,next)=>{
-
+    console.log('ss')
    
     const ProductToShow_PerPage = 5;
 
     const product_count = await Product.countDocuments();
-
+   
     const Apifeature = new ApiFeatures(Product.find(),req.query).search().filter().pagination(ProductToShow_PerPage);
     // const Allproducts = await Product.find();
     //  or we cn write now as:
+    console.log('ss')
     const Allproducts = await Apifeature.query;
+
+    console.log(Allproducts)
 
 
 
@@ -112,6 +115,7 @@ exports.DeleteProduct= CatchAysncError(async (req,res,next)=>{
 //Get Product Detail of One
 exports.GetSingleProductDetail = CatchAysncError(async (req,res,next)=>{
 
+    
     let product = await Product.findById(req.params.id);
      
     console.log(product)
