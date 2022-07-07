@@ -1,0 +1,109 @@
+.LoginSignupContainer{
+    width:100vw;
+    height: 100vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    position: fixed;
+    border: 2px solid red;;
+
+}
+
+.LoginSignUpBox{
+    border: 2px solid rgb(80,80,80);
+    background-color: white;
+    width:25vw;
+    height: 70vh;
+    box-sizing: border-box;
+    /* overflow: hidden; */
+}
+
+.login-signup-toggle{
+    border:2px solid greenyellow;
+    display: flex;
+    height: 3vmax;
+    align-items: center;
+
+}
+
+.login-signup-toggle>p{
+    font: 300 1vmax 'Roboto';
+    color: rgba(0,0,0,.617);
+    transition: all 0.5s;
+    cursor: pointer;
+    text-align: center;
+    /* border: 2px solid rgba(0,0,0,0.317); */
+    padding: .5vmax;
+    width: 100%;
+   
+  
+}
+
+.login-signup-toggle>p:hover{
+    
+    color: tomato;
+    
+}
+
+.LoginSignUp_Switch-Button{
+    background-color: tomato;
+    height: 3px;
+    width: 50%;
+    border: none;
+    transition: all 0.5s;
+
+}
+
+.logInForm, .signUpForm{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 2vmax;
+    justify-content: space-evenly;
+    height: 70%;
+    transition: all 0.5s;
+    border: 2px solid yellow;
+
+
+}
+
+.logInForm > div, .signUpForm >div{
+    display: flex;
+    border: 2px solid violet;
+    width: 100%;
+    align-items: center;
+}
+
+.logInForm > div >input, .signUpForm >div >input{
+    padding: 1vmax 3vmax 1vmax 4vmax;
+  
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,0.267);
+    border-radius: 4px;
+    font: 300 0.9vmax cursive;
+}
+
+
+
+/*To select the material ui icons component we use svg tag*/
+
+.logInForm > div>svg, .signUpForm >div>svg{
+   position: absolute;
+   transform: translateX(1vmax);
+   font-size: 1.6vmax;
+   color: rgba(0,0,0,.617);
+}
+
+.logInForm > div>svg:nth-last-child(1), .signUpForm >div>svg:nth-last-child(1){
+   
+    position: absolute;
+    transform: translateX(18vmax);
+    font-size: 1.6vmax;
+    color: rgba(0,0,0,.617);
+    cursor: pointer;
+ }

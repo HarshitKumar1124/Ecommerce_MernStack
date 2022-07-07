@@ -13,6 +13,8 @@ import AllProducts from "./components/Product/AllProducts.js";
 
 import Search from "./components/Product/Search.js"
 
+import LogInSignUp from "./components/User/LogInSignUp.js"
+
 function App() {
   useEffect(() => {
     Webfont.load({
@@ -43,6 +45,8 @@ function App() {
 
         <Route  exact path="/search" element={<Search/>}/>
         <Route   path="/product/:keyword" element={<AllProducts/>} />
+        <Route exact path="/login_signup" element={<LogInSignUp/>}/>
+      
       </Routes>
 
       <Footer />
