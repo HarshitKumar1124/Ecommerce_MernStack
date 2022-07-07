@@ -26,7 +26,8 @@ const Home = () => {
     if(error)
     return alert.error(error);
     
-     dispatch(getProduct);
+    
+     dispatch(getProduct());
   }, [dispatch,error,alert]);
 
 

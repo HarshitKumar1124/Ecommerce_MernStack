@@ -52,7 +52,8 @@ exports.getAllProduct=CatchAysncError(async(req,res,next)=>{
  res.status(200).json({
     success:true,        
     Allproducts,
-    productsCount:product_count
+    productsCount:product_count,
+    ProductToShow_PerPage
   });
 
 });
