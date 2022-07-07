@@ -42,7 +42,7 @@ class ApiFeatures {
         let PriceString = JSON.stringify(queryCopy);
         PriceString = PriceString.replace(/\b(gt|lt|gte|lte)\b/g,key=>`$${key}`);
 
-        console.log(PriceString);
+        console.log("jjiiii",PriceString);
 
         
 

@@ -49,11 +49,34 @@ const AllProducts = () => {
         setCurrentPage(e)
     }
 
+    // Category Filter
+
+    const CategoryList = [
+        'Beast',
+        'Footwear',
+        'Angel',
+        'Tops',
+        'Attire',
+        'Camera',
+        'SmartPhones'
+    ];
+
+    const [Category,SetCategory] =useState('');
+
+    const CategoryFilterHandler=(selected)=>{
+        
+        console.log('category: ',Category,selected)
+        SetCategory(selected)
+       
+       
+    }
+
+
     useEffect(()=>{
 
-        dispatch(getProduct(fetchParams.keyword,currentpage,price));
+        dispatch(getProduct(fetchParams.keyword,currentpage,price,Category));
       
-    },[dispatch,fetchParams.keyword,currentpage,price])
+    },[dispatch,fetchParams.keyword,currentpage,price,Category])
 
    let requiredLength=0;
 
@@ -103,6 +126,26 @@ const AllProducts = () => {
                    {value:15000,label:"Rs 15000"}]}
                    />
                 </div>
+                </div>
+
+                <div className='CategoryContainer'>
+
+                    <div className="CategoryFilter">
+                        <h1>Category</h1>
+                        <ul>
+                            {
+                                CategoryList.map((item)=>{
+                                    return <li
+                                    className='category-link'
+                                    key={item}
+                                    onClick={()=>CategoryFilterHandler(item)}
+                                    >{item}</li>
+                                })
+                            }
+                        </ul>
+
+                    </div>
+
                 </div>
 
                 {

@@ -2,7 +2,7 @@ import axios from "axios"
 import { All_Product_Request,Product_Details_Request,Product_Details_fail,Product_Details_success,All_Product_fail,All_Product_success ,Clear_errors} from "../Redux_Constants/ProductConstants";
 
 
-export const getProduct = (keyword="",currentpage=1,price=[0,15000])=>async(dispatch)=>{
+export const getProduct = (keyword="",currentpage=1,price=[0,15000],Category)=>async(dispatch)=>{
 
     try{
         console.log("hiiiiiiiiiis")
@@ -11,7 +11,13 @@ export const getProduct = (keyword="",currentpage=1,price=[0,15000])=>async(disp
         })
 
         console.log("ssssss")
-        const {data}= await axios.get(`/api/v1/products?keyword=${keyword}&page=${currentpage}&price[gte]=${price[0]}&price[lte]=${price[1]}`)
+
+        let link = `/api/v1/products?keyword=${keyword}&page=${currentpage}&price[gte]=${price[0]}&price[lte]=${price[1]}`
+
+        if(Category)
+        link=`/api/v1/products?keyword=${keyword}&page=${currentpage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${Category}`
+
+        const {data}= await axios.get(link)
     
         // console.log(ProductsDB )
         //  console.log(ProductsDB.data)
