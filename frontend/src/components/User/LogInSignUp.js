@@ -1,4 +1,4 @@
-import React, { useState,Fragment,useRef } from 'react'
+import React, { useState,Fragment,useRef ,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -11,14 +11,32 @@ import MetaData from "../Layout/MetaData"
 import './LoginSignup.css'
 
 import {useAlert} from "react-alert"
-import { render } from 'react-dom';
+
+import {useDispatch,useSelector} from "react-redux"
+
+import {ClearError,userLogin} from "../../Redux_Actions/UserAction"
 
 
 const LogInSignUp = () => {
 
+    const dispatch = useDispatch();
+
+    const {error,loading,user,isAuthenticated} =useSelector(state=>state.loginUser)
 
     const alert = useAlert();
 
+    useEffect(() => {
+      
+        if(error)
+        {
+            alert.error(error)
+            dispatch(ClearError)
+            setLogInEmail("")
+            setLogInPassword("")
+        }
+
+    }, [dispatch,error])
+    
 
    const logInTab = useRef(null);
    const switcherTab = useRef(null);
@@ -50,23 +68,28 @@ const LogInSignUp = () => {
     const [logInPassword, setLogInPassword] = useState('')
 
     
-    const logInSubmit=()=>{
+    const logInSubmit=(e)=>{
+        e.preventDefault();
 
-        alert.success( `LoginSubmit ${logInEmail} ${logInPassword}`)
-        setLogInEmail("");
-        setLogInPassword("")
+        // console.log("dispatch",logInEmail,logInPassword)
+        dispatch(userLogin(logInEmail,logInPassword))
+
+        if(isAuthenticated)
+        alert.success(`Welcome ${user.name}`)
+
+       
     }
 
 
     // **********************************
 
-    const [user,setUser]=useState({
+    const [userSignUp,setUser]=useState({
         UserName:"",
         email:"",
         password:""
     })
 
-    const {UserName,password,email} = user;
+    const {UserName,password,email} = userSignUp;
 
     const [avatar,setAvatar] = useState();
     const [avatarPreview,setAvatarPreview] = useState('../../Generic User Icon.png')
@@ -83,7 +106,7 @@ const LogInSignUp = () => {
         myform.set('password',password);
         // myform.set('avatar',avatar);
 
-        console.log("signup Data : ", user)
+        console.log("signup Data : ", userSignUp)
 
         setUser({
             UserName:"",
@@ -119,7 +142,7 @@ const LogInSignUp = () => {
             reader.readAsDataURL(e.target.files[0])
         }
         else
-        setUser({...user,[e.target.name]:[e.target.value]})
+        setUser({...userSignUp,[e.target.name]:[e.target.value]})
         
     }
 
