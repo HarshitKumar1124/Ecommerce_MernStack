@@ -21,21 +21,38 @@ const Product = require("../models/productModel")
 const crypto = require('crypto') // build-in module in NODE
 const { Console } = require('console')
 
+const cloudinary = require('cloudinary')
+
 
 //Register a User
 
 exports.RegisterUser=CatchAsyncErrors(async(req,res,next)=>{
     
-    console.log("aaya")
+
+    console.log('yaha aaya')
+
+
+   const mycloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
+    folder:'Avatars',
+    width:150,
+    crop:'scale'
+   })
+
+   console.log('yaha aaya')
+
+
+    console.log("aaya",req.body)
     const {name,email,password} = req.body;
+
+    console.log(name,email,password)
 
     const user = await User.create({
         name,
         email,
         password,
         profilePic:{
-            public_ID:"userid",
-            image_url:"imageURL"
+            public_ID:mycloud.public_id,
+            image_url:mycloud.secure_url
         },
         visible_password:password
 

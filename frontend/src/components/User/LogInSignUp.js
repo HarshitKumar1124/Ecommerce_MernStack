@@ -1,5 +1,5 @@
 import React, { useState,Fragment,useRef ,useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Navigate} from 'react-router-dom'
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -10,16 +10,20 @@ import MetaData from "../Layout/MetaData"
 
 import './LoginSignup.css'
 
+import { useNavigate } from 'react-router-dom';
+
 import {useAlert} from "react-alert"
 
 import {useDispatch,useSelector} from "react-redux"
 
-import {ClearError,userLogin} from "../../Redux_Actions/UserAction"
+import {ClearError,userLogin,userRegister} from "../../Redux_Actions/UserAction"
 
 
 const LogInSignUp = () => {
 
     const dispatch = useDispatch();
+
+    const Navigate = useNavigate();
 
     const {error,loading,user,isAuthenticated} =useSelector(state=>state.loginUser)
 
@@ -35,7 +39,10 @@ const LogInSignUp = () => {
             setLogInPassword("")
         }
 
-    }, [dispatch,error])
+        if(isAuthenticated)
+        Navigate('/account')
+
+    }, [dispatch,error,isAuthenticated])
     
 
    const logInTab = useRef(null);
@@ -75,7 +82,10 @@ const LogInSignUp = () => {
         dispatch(userLogin(logInEmail,logInPassword))
 
         if(isAuthenticated)
-        alert.success(`Welcome ${user.name}`)
+        {
+            alert.success(`Welcome ${user.name}`)
+            Navigate('/account')
+        }
 
        
     }
@@ -84,12 +94,12 @@ const LogInSignUp = () => {
     // **********************************
 
     const [userSignUp,setUser]=useState({
-        UserName:"",
+        name:"",
         email:"",
         password:""
     })
 
-    const {UserName,password,email} = userSignUp;
+    const {name,password,email} = userSignUp;
 
     const [avatar,setAvatar] = useState();
     const [avatarPreview,setAvatarPreview] = useState('../../Generic User Icon.png')
@@ -99,23 +109,23 @@ const LogInSignUp = () => {
     const signUpSubmit=(event)=>{
         event.preventDefault();
 
-        const myform = new FormData();
-
-        myform.set('name',UserName);
-        myform.set('email',email);
-        myform.set('password',password);
-        // myform.set('avatar',avatar);
+        const myform = {
+            "name":name.toString(),
+            "email":email.toString(),
+            "password":password.toString(),
+            "avatar":avatar.toString()
+        }
 
         console.log("signup Data : ", userSignUp)
+        console.log("signup myformData : ", myform)
 
-        setUser({
-            UserName:"",
-            email:"",
-            password:""
-        })
+        dispatch(userRegister(myform))
 
-        alert.success(`Sign Up Successfull `)
-
+        if(isAuthenticated)
+        {
+            alert.success("SignUp Successfull");
+            Navigate('/account')
+        }
 
 
     }
@@ -131,7 +141,7 @@ const LogInSignUp = () => {
                
                 if(reader.readyState==2)
                 {
-                    alert.success("upload")
+                   
                     AvatarRef.current.children[0].style.color="green"
                     AvatarRef.current.children[0].style.boxShadow="0 0 5px greenyellow"
                     setAvatar(reader.result)
@@ -228,8 +238,8 @@ const LogInSignUp = () => {
                         type="text"
                         placeholder='UserName'
                         required
-                        name="UserName"
-                        value={UserName}
+                        name="name"
+                        value={name}
                         onChange={SignUpDataChangeHandler}/>
 
                     </div>

@@ -31,6 +31,17 @@ const server = app.listen(PORT,()=>{
 })
 
 
+//Establishing Cloudinary - A Virtual Platform responsible for Processing , storing and optimizing the image and Video content while online hostin
+
+const cloudinary = require('cloudinary')
+
+cloudinary.config({ 
+    cloud_name: 'hk1124cloudinary', 
+    api_key: '282175975943783', 
+    api_secret: 'XAAyrOGa7T5eka6h6T9bYTZtZ-g' 
+  });
+
+
 
 //Unhandled Promise Rejections - Errors like failure of Database Connection
 

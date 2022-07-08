@@ -28,6 +28,16 @@ const cookieParser = require("cookie-parser")
 
 app.use(cookieParser());
 
+////////////////////////////////////////////////
+
+// cloudinary related import
+
+const bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload')
+
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(fileUpload)
+
 
 //Route Import for Orders
 const Orders = require("./routes/OrderRoute")
