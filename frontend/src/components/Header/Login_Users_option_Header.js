@@ -8,6 +8,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListAltIcon from '@material-ui/icons/ListAlt';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 import { useNavigate } from 'react-router';
 
@@ -40,7 +41,7 @@ const Login_Users_option_Header = ({user}) => {
 
   const Profile=()=>{
 
-    Navigate("/Profile")
+    Navigate("/MyProfile")
   }
 
 
@@ -81,13 +82,14 @@ const Login_Users_option_Header = ({user}) => {
   return (
     <Fragment>
       <Backdrop open={Open} style={{zIndex:10}}/>
+     
       <SpeedDial 
       ariaLabel='SpeedDial tooltip example'
       onClose={()=>setOpen(false)}
       onOpen={()=>setOpen(true)}
       open={Open}
       style={{position:"fixed",right:30,bottom:20,zIndex:11}}
-      icon={<img src={user.profilePic.image_url?user.profilePic.image_url:"../../Generic User Icon.png"} alt={`${user.name} Profile Icon`} className="SpeedDialIcon" title={`${user.name} Profile Icon`} />}
+      icon={user.profilePic.image_url!=="imageURL"?<img src={user.profilePic.image_url} alt={`${user.name} Profile Icon`} className="SpeedDialIcon" title={`${user.name} Profile Icon`} />:<AccountBoxIcon/>}
       >
         {actions.map((action) => (
         <SpeedDialAction

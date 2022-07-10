@@ -24,6 +24,8 @@ import UserOptions from './components/Header/Login_Users_option_Header.js'
 
 import {useSelector} from 'react-redux';
 
+import Profile from "./components/Profile/Profile.js"
+
 
 function App() {
 
@@ -64,6 +66,7 @@ function App() {
         <Route  exact path="/search" element={<Search/>}/>
         <Route   path="/product/:keyword" element={<AllProducts/>} />
         <Route exact path="/login_signup" element={<LogInSignUp/>}/>
+        <Route exact path="/MyProfile" element={<Profile user={user}/>} />
       
       </Routes>
 

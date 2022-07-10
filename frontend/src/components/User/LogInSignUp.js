@@ -40,7 +40,7 @@ const LogInSignUp = () => {
         }
 
         if(isAuthenticated)
-        Navigate('/')
+        Navigate('/MyProfile')
 
     }, [dispatch,error,isAuthenticated])
     
@@ -84,7 +84,7 @@ const LogInSignUp = () => {
         if(isAuthenticated)
         {
             alert.success(`Welcome ${user.name}`)
-            Navigate('/account')
+            Navigate('/MyProfile')
         }
 
        
