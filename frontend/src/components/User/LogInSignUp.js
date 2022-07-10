@@ -40,7 +40,7 @@ const LogInSignUp = () => {
         }
 
         if(isAuthenticated)
-        Navigate('/account')
+        Navigate('/')
 
     }, [dispatch,error,isAuthenticated])
     

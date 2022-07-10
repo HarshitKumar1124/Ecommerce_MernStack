@@ -15,7 +15,22 @@ import Search from "./components/Product/Search.js"
 
 import LogInSignUp from "./components/User/LogInSignUp.js"
 
+import Reduxstore from './ReduxStore'
+import { LoadUser } from "./Redux_Actions/UserAction.js";
+
+
+import UserOptions from './components/Header/Login_Users_option_Header.js'
+
+
+import {useSelector} from 'react-redux';
+
+
 function App() {
+
+  
+  const {loading,isAuthenticated,user} = useSelector(state=>state.loginUser)
+  
+  
   useEffect(() => {
     Webfont.load({
       google: {
@@ -28,13 +43,16 @@ function App() {
         ],
       },
     });
+
+    Reduxstore.dispatch(LoadUser())
   }, []);
 
   return (
     <Router>
       
       <Header />
-
+      {loading?<Loader/>:(isAuthenticated && <UserOptions user={user}/>) }
+      
       <Routes>                                                        //Switch is replaced By Routes from React-router-dom --v6
         <Route exact path="/" element={<Home/>} />
         <Route exact path="/loader" element={<Loader />} />

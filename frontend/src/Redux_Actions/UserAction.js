@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import { UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success} from "../Redux_Constants/UserConstants";
+import { LOGOUT_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success,LoadUser_Request,LoadUser_fail,LoadUser_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success, LOGOUT_fail} from "../Redux_Constants/UserConstants";
 
-
+//LOGIN Action
 export const userLogin = (email,password)=>async(dispatch)=>{
 
     try{
@@ -28,7 +28,7 @@ export const userLogin = (email,password)=>async(dispatch)=>{
 }
 
 
-
+//SignUp Action
 export const userRegister = (UserData)=>async(dispatch)=>{
 
     try{
@@ -48,6 +48,55 @@ export const userRegister = (UserData)=>async(dispatch)=>{
         dispatch({type:UserREGISTER_fail,payload:error.response.data.message})
     }
 
+}
+
+
+
+
+//Load User Action - this is meant to load the page directly to account page if a person is logged in.... rather them giving them login/signup option on that page
+export const LoadUser = ()=>async(dispatch)=>{
+
+    try{
+        dispatch({type: LoadUser_Request});
+        console.log("LoadUser post")
+
+    
+
+         
+        const {data} =await axios.get(`/api/v1/MyProfile`);
+       
+        dispatch({
+            type:LoadUser_success,
+            payload:data.user
+        })
+
+    }
+    catch(error)
+    {
+        dispatch({type:LoadUser_fail,payload:error.response.data.message})
+    }
+
+}
+
+
+export const userLogOut =()=>async (dispatch)=>{
+
+    console.log("Logout here")
+
+    try{
+
+    
+    await axios.get(`/api/v1/logout_user`);
+    
+    dispatch({
+        type:LOGOUT_success
+    })
+
+    }
+    catch(error)
+    {
+        dispatch({type:LOGOUT_fail,payload:error.response.data.message})
+    }
 }
 
 
