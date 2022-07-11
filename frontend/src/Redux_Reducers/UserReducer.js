@@ -1,6 +1,6 @@
 // import { UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success, Clear_errors } from "../Redux_Constants/UserConstants";
 
-import { LOGOUT_fail,LOGOUT_success, LoadUser_Request,LoadUser_fail,LoadUser_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success} from "../Redux_Constants/UserConstants";
+import {  UPDATE_PROFILE_Request, UPDATE_PROFILE_Reset, UPDATE_PROFILE_success, UPDATE_PROFILE_fail,LOGOUT_fail,LOGOUT_success, LoadUser_Request,LoadUser_fail,LoadUser_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success} from "../Redux_Constants/UserConstants";
 
 
 
@@ -53,6 +53,49 @@ export const userReducer = (state={Users:{}},action)=>{
                 isAuthenticated:false,
                 user:null,
                 error:action.payload
+
+            }
+        case Clear_errors:
+            return{
+                ...state,
+                error:null
+            }
+        default:
+            return state
+    }
+}
+
+
+//Update Profile Reducer
+export const userUpdateProfile = (state={},action)=>{
+
+    switch(action.type)
+    {
+        case UPDATE_PROFILE_Request:
+            return{
+                
+                ...state,
+                loading:true,
+                
+
+            };
+        case UPDATE_PROFILE_success: 
+            return{
+                ...state,
+                loading:false,
+                isUpdated:action.payload
+            };
+        case UPDATE_PROFILE_fail:
+            return{
+                ...state,
+                loading:false,
+                error:action.payload
+
+            };
+        case UPDATE_PROFILE_Reset:
+            return {
+                ...state,
+                isUpdated:false
 
             }
         case Clear_errors:

@@ -27,6 +27,11 @@ import {useSelector} from 'react-redux';
 import Profile from "./components/Profile/Profile.js"
 
 
+//using Protected route in order to make sure page will load if an only if User is logged in., even u refresh the page
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js"
+
+import UserUpdate from  "./components/UserUpdate/UserUpdate.js"
+
 function App() {
 
   
@@ -66,8 +71,11 @@ function App() {
         <Route  exact path="/search" element={<Search/>}/>
         <Route   path="/product/:keyword" element={<AllProducts/>} />
         <Route exact path="/login_signup" element={<LogInSignUp/>}/>
+        
+        {/* //Unable to understand Protected Route */}
         <Route exact path="/MyProfile" element={<Profile user={user}/>} />
       
+        <Route exact path="/MyProfile/update" element={<UserUpdate/>} />
       </Routes>
 
       <Footer />

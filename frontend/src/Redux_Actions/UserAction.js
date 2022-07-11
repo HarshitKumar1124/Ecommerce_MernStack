@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { LOGOUT_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success,LoadUser_Request,LoadUser_fail,LoadUser_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success, LOGOUT_fail} from "../Redux_Constants/UserConstants";
+import { UPDATE_PROFILE_Request,UPDATE_PROFILE_success,UPDATE_PROFILE_fail,UPDATE_PROFILE_Reset,LOGOUT_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success,LoadUser_Request,LoadUser_fail,LoadUser_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success, LOGOUT_fail} from "../Redux_Constants/UserConstants";
 
 //LOGIN Action
 export const userLogin = (email,password)=>async(dispatch)=>{
@@ -98,6 +98,32 @@ export const userLogOut =()=>async (dispatch)=>{
         dispatch({type:LOGOUT_fail,payload:error.response.data.message})
     }
 }
+
+
+
+//Update Profile Action
+
+export const userUpdate = (UserNEWData)=>async(dispatch)=>{
+
+    try{
+        dispatch({type: UPDATE_PROFILE_Request});
+        console.log("UPDATE_PROFILE post")
+  
+        const {data} =await axios.put(`/api/v1/MyProfile/update`,UserNEWData);
+       
+        dispatch({
+            type:UPDATE_PROFILE_success,
+            payload:data.user
+        })
+
+    }
+    catch(error)
+    {
+        dispatch({type:UPDATE_PROFILE_fail,payload:error.response.data.message})
+    }
+
+}
+
 
 
 
