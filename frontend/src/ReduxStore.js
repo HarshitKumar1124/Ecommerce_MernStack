@@ -10,12 +10,14 @@ import {composeWithDevTools} from "redux-devtools-extension"
 import { productDetailsReducer, productReducer } from "./Redux_Reducers/ProductReducer";
 
 
-import{userReducer} from "./Redux_Reducers/UserReducer"
+
+import{userReducer,userUpdateProfile} from "./Redux_Reducers/UserReducer"
 
 const reducer = combineReducers({
     products:productReducer,
     productDetails:productDetailsReducer,
-    loginUser:userReducer
+    loginUser:userReducer,
+    UpdateUser:userUpdateProfile
 
 });
 

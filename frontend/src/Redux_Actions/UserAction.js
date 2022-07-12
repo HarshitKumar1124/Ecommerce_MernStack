@@ -110,10 +110,11 @@ export const userUpdate = (UserNEWData)=>async(dispatch)=>{
         console.log("UPDATE_PROFILE post")
   
         const {data} =await axios.put(`/api/v1/MyProfile/update`,UserNEWData);
+        console.log('Updated',data)
        
         dispatch({
             type:UPDATE_PROFILE_success,
-            payload:data.user
+            payload:true
         })
 
     }
