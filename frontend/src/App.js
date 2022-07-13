@@ -31,6 +31,7 @@ import Profile from "./components/Profile/Profile.js"
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js"
 
 import UserUpdate from  "./components/UserUpdate/UserUpdate.js"
+import UserPasswordUpdate from "./components/UserUpdate/UserPasswordUpdate.js";
 
 function App() {
 
@@ -76,6 +77,8 @@ function App() {
         <Route exact path="/MyProfile" element={<Profile user={user}/>} />
       
         <Route exact path="/MyProfile/update" element={<UserUpdate/>} />
+
+        <Route exact path="/password/update" element={<UserPasswordUpdate/>}/>
       </Routes>
 
       <Footer />

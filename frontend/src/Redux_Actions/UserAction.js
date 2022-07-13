@@ -2,6 +2,10 @@ import axios from 'axios'
 
 import { UPDATE_PROFILE_Request,UPDATE_PROFILE_success,UPDATE_PROFILE_fail,UPDATE_PROFILE_Reset,LOGOUT_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success,LoadUser_Request,LoadUser_fail,LoadUser_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success, LOGOUT_fail} from "../Redux_Constants/UserConstants";
 
+import {UPDATE_Password_Request,UPDATE_Password_success,UPDATE_Password_fail,UPDATE_Password_Reset} from "../Redux_Constants/UserConstants"
+
+
+
 //LOGIN Action
 export const userLogin = (email,password)=>async(dispatch)=>{
 
@@ -124,6 +128,33 @@ export const userUpdate = (UserNEWData)=>async(dispatch)=>{
     }
 
 }
+
+
+
+//Update Password Action
+
+export const userPasswordUpdate = (NEWPasswordData)=>async(dispatch)=>{
+
+    try{
+        dispatch({type: UPDATE_Password_Request});
+        console.log("UPDATE_Password post")
+  
+        const {data} =await axios.put(`/api/v1/password/update`,NEWPasswordData);
+        console.log('Updated Password',data)
+       
+        dispatch({
+            type:UPDATE_Password_success,
+            payload:true
+        })
+
+    }
+    catch(error)
+    {
+        dispatch({type:UPDATE_Password_fail,payload:error.response.data.message})
+    }
+
+}
+
 
 
 

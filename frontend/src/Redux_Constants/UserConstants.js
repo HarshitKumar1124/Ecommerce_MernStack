@@ -22,5 +22,10 @@ export const UPDATE_PROFILE_success = "UPDATE_PROFILE_success";
 export const UPDATE_PROFILE_fail = "UPDATE_PROFILE_fail";
 export const UPDATE_PROFILE_Reset = "UPDATE_PROFILE_Reset";
 
+export const UPDATE_Password_Request = "UPDATE_Password_Request";
+export const UPDATE_Password_success = "UPDATE_Password_success";
+export const UPDATE_Password_fail = "UPDATE_Password_fail";
+export const UPDATE_Password_Reset = "UPDATE_Password_Reset";
+
 
 export const Clear_errors = "Clear_error"

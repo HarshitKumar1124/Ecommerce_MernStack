@@ -3,6 +3,8 @@
 import {  UPDATE_PROFILE_Request, UPDATE_PROFILE_Reset, UPDATE_PROFILE_success, UPDATE_PROFILE_fail,LOGOUT_fail,LOGOUT_success, LoadUser_Request,LoadUser_fail,LoadUser_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success} from "../Redux_Constants/UserConstants";
 
 
+import {UPDATE_Password_Request,UPDATE_Password_success,UPDATE_Password_fail,UPDATE_Password_Reset} from "../Redux_Constants/UserConstants";
+
 
 
 export const userReducer = (state={Users:{}},action)=>{
@@ -72,6 +74,7 @@ export const userUpdateProfile = (state={},action)=>{
     switch(action.type)
     {
         case UPDATE_PROFILE_Request:
+        case UPDATE_Password_Request:
             return{
                 
                 ...state,
@@ -80,12 +83,14 @@ export const userUpdateProfile = (state={},action)=>{
 
             };
         case UPDATE_PROFILE_success: 
+        case UPDATE_Password_success:
             return{
                 ...state,
                 loading:false,
                 isUpdated:action.payload
             };
         case UPDATE_PROFILE_fail:
+        case UPDATE_Password_fail:
             return{
                 ...state,
                 loading:false,
@@ -93,6 +98,7 @@ export const userUpdateProfile = (state={},action)=>{
 
             };
         case UPDATE_PROFILE_Reset:
+        case UPDATE_Password_Reset:
             return {
                 ...state,
                 isUpdated:false
