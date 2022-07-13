@@ -32,6 +32,13 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js"
 
 import UserUpdate from  "./components/UserUpdate/UserUpdate.js"
 import UserPasswordUpdate from "./components/UserUpdate/UserPasswordUpdate.js";
+import ForgetPassword from  "./components/UserUpdate/ForgetPassword.js"
+import Forget_Reset_Password from  "./components/UserUpdate/Forget_Reset_Password.js"
+
+
+
+
+import Orders from "./components/Order/Orders.js"
 
 function App() {
 
@@ -79,6 +86,12 @@ function App() {
         <Route exact path="/MyProfile/update" element={<UserUpdate/>} />
 
         <Route exact path="/password/update" element={<UserPasswordUpdate/>}/>
+
+        <Route exact path="/password/forget" element={<ForgetPassword/>}/>
+
+        <Route exact path="/password/forget/:token" element={<Forget_Reset_Password/>}/>
+
+        <Route exact path="/Orders" element={<Orders/>} />
       </Routes>
 
       <Footer />

@@ -11,13 +11,14 @@ import { productDetailsReducer, productReducer } from "./Redux_Reducers/ProductR
 
 
 
-import{userReducer,userUpdateProfile} from "./Redux_Reducers/UserReducer"
+import{userReducer,userUpdateProfile,forgetPasswordReducer} from "./Redux_Reducers/UserReducer"
 
 const reducer = combineReducers({
     products:productReducer,
     productDetails:productDetailsReducer,
     loginUser:userReducer,
-    UpdateUser:userUpdateProfile
+    UpdateUser:userUpdateProfile,
+    forgetPassword:forgetPasswordReducer
 
 });
 

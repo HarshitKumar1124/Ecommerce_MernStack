@@ -27,5 +27,8 @@ export const UPDATE_Password_success = "UPDATE_Password_success";
 export const UPDATE_Password_fail = "UPDATE_Password_fail";
 export const UPDATE_Password_Reset = "UPDATE_Password_Reset";
 
+export const FORGET_Password_Request = "FORGET_Password_Request";
+export const FORGET_Password_success = "FORGET_Password_success";
+export const FORGET_Password_fail = "FORGET_Password_fail";
 
 export const Clear_errors = "Clear_error"

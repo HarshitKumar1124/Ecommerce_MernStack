@@ -2,7 +2,13 @@ import axios from 'axios'
 
 import { UPDATE_PROFILE_Request,UPDATE_PROFILE_success,UPDATE_PROFILE_fail,UPDATE_PROFILE_Reset,LOGOUT_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success,LoadUser_Request,LoadUser_fail,LoadUser_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success, LOGOUT_fail} from "../Redux_Constants/UserConstants";
 
-import {UPDATE_Password_Request,UPDATE_Password_success,UPDATE_Password_fail,UPDATE_Password_Reset} from "../Redux_Constants/UserConstants"
+import {UPDATE_Password_Request,
+    UPDATE_Password_success,
+    UPDATE_Password_fail,
+    UPDATE_Password_Reset,
+    FORGET_Password_Request,
+    FORGET_Password_success,
+    FORGET_Password_fail} from "../Redux_Constants/UserConstants"
 
 
 
@@ -153,6 +159,35 @@ export const userPasswordUpdate = (NEWPasswordData)=>async(dispatch)=>{
         dispatch({type:UPDATE_Password_fail,payload:error.response.data.message})
     }
 
+}
+
+
+
+
+//Forget Password Action 
+
+export const forgetPassword=(Email)=> async (dispatch)=>{
+
+    try{
+
+        dispatch({type: FORGET_Password_Request});
+        console.log("Forget_Password post",Email.email)
+  
+        const {data} =await axios.post(`/api/v1/password/forget`,Email);
+        console.log('Forget Password',data)
+       
+        dispatch({
+            type: FORGET_Password_success,
+            payload:data.message
+        })
+
+
+
+    }
+    catch(error)
+    {
+        dispatch({type:FORGET_Password_fail,payload:error.response.data.message});
+    }
 }
 
 
