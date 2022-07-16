@@ -1,4 +1,4 @@
-import React,{Fragment, useEffect} from 'react'
+import React,{Fragment, useEffect, useState} from 'react'
 // import Carousel from "react-material-ui-carousel"
 
 import "./ProductDetails.css"
@@ -27,8 +27,24 @@ const ProductDetails = () => {
 
   const fetchParams = useParams();
 
+
   const {productDetail,loading,error} = useSelector((state)=> state.productDetails)
   console.log("hi",error)
+
+  const[value,setIncrement] = useState(1);
+
+  const setQuantityDec=()=>{
+    if(value>1)
+    setIncrement(value-1)
+  }
+  const setQuantityInc=()=>{
+   
+    if(productDetail.stock>value)
+    setIncrement(value+1)
+  }
+
+
+
 
   useEffect(() => {
 
@@ -110,9 +126,9 @@ let options = {
     
                         <div className='DetailBlock-3-1-1'>
     
-                          <button>-</button>
-                          <input type="number" value="1"/>
-                          <button>+</button>
+                          <button onClick={setQuantityDec}>-</button>
+                          <input readOnly type="number" value={value}/>
+                          <button onClick={setQuantityInc}>+</button>
                           {/* <input type="number" value="1"/> */}
                         </div>
     

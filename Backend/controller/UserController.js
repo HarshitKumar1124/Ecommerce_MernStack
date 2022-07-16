@@ -170,7 +170,7 @@ exports.forgotPassword = CatchAsyncErrors(async (req,res,next)=>{
 
 
 
-    const resetPasswordURL = `http://localhost:4000/api/v1/password/reset/${TokenReset}`
+    const resetPasswordURL = `http://localhost:3000/password/reset/${TokenReset}`
     //this line will work when runn on lcal but if we deloy the website then there mat be chances that 
     // "http" protocol may change to "https" and host name change from "localhost" to definite WEBSITE Name
 
@@ -255,10 +255,10 @@ exports.resetPassword=CatchAsyncErrors(async(req,res,next)=>{
    if(!user_target)
    return next(new ErrorHandler("Reset Password Token is Invalid Or has expired",400))
 
-   if(req.body.password !== req.body.confirmPassword)
+   if(req.body.NewPassword !== req.body.confirmPassword)
    return next(new ErrorHandler("Password Fields Doesn't Matched",401))
 
-   user_target.password = req.body.password;
+   user_target.password = req.body.NewPassword;
 
    user_target.resetPasswordToken = undefined;
    user_target.resetPasswordExpire = undefined;

@@ -22,7 +22,7 @@ router.route("/logout_user").get(LogOutUser)
 router.route("/password/forget").post(forgotPassword)
 
 //ResetPassword
-router.route("/password/forget/:token").put(resetPassword)
+router.route("/password/reset/:token").put(resetPassword)
 
 
 //Get Profile Details - this can be done only if logged in

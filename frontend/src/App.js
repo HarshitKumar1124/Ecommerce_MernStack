@@ -89,7 +89,7 @@ function App() {
 
         <Route exact path="/password/forget" element={<ForgetPassword/>}/>
 
-        <Route exact path="/password/forget/:token" element={<Forget_Reset_Password/>}/>
+        <Route exact path="/password/reset/:token" element={<Forget_Reset_Password/>}/>
 
         <Route exact path="/Orders" element={<Orders/>} />
       </Routes>

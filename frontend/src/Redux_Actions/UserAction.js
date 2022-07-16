@@ -8,7 +8,10 @@ import {UPDATE_Password_Request,
     UPDATE_Password_Reset,
     FORGET_Password_Request,
     FORGET_Password_success,
-    FORGET_Password_fail} from "../Redux_Constants/UserConstants"
+    FORGET_Password_fail,
+    RESET_Password_Request,
+    RESET_Password_success,
+    RESET_Password_fail} from "../Redux_Constants/UserConstants"
 
 
 
@@ -190,6 +193,35 @@ export const forgetPassword=(Email)=> async (dispatch)=>{
     }
 }
 
+
+//Reset Password : 
+
+export const userPasswordReset =(passwords,token)=>async (dispatch)=>{
+
+  
+
+    try{
+
+        dispatch({type: RESET_Password_Request});
+        console.log("Reset_Password post")
+  
+        const {data} =await axios.put(`/api/v1/password/reset/${token}`,passwords);
+        console.log('Reset Password',data)
+       
+        dispatch({
+            type: RESET_Password_success,
+            payload:data.success
+        })
+
+
+
+    }
+    catch(error)
+    {
+        dispatch({type:RESET_Password_fail,payload:error.response.data.message});
+    }
+
+}
 
 
 

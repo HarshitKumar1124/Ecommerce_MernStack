@@ -9,7 +9,10 @@ import {UPDATE_Password_Request,
     UPDATE_Password_Reset,
     FORGET_Password_Request,
     FORGET_Password_success,
-    FORGET_Password_fail} from "../Redux_Constants/UserConstants";
+    FORGET_Password_fail,
+    RESET_Password_Request,
+    RESET_Password_success,
+    RESET_Password_fail} from "../Redux_Constants/UserConstants";
 
 
 
@@ -128,6 +131,7 @@ export const forgetPasswordReducer = (state={},action)=>{
     switch(action.type)
     {
         case FORGET_Password_Request:
+        case  RESET_Password_Request:
             return{
                 
                 ...state,
@@ -142,8 +146,17 @@ export const forgetPasswordReducer = (state={},action)=>{
                 loading:false,
                 message:action.payload
             };
+        case RESET_Password_success:
+            return{
+                ...state,
+                loading:false,
+                success:action.payload
+            };
+        
+        
      
         case FORGET_Password_fail:
+        case RESET_Password_fail:
             return{
                 ...state,
                 loading:false,

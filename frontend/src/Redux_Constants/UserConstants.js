@@ -31,4 +31,8 @@ export const FORGET_Password_Request = "FORGET_Password_Request";
 export const FORGET_Password_success = "FORGET_Password_success";
 export const FORGET_Password_fail = "FORGET_Password_fail";
 
+export const RESET_Password_Request = "RESET_Password_Request";
+export const RESET_Password_success = "RESET_Password_success";
+export const RESET_Password_fail = "RESET_Password_fail";
+
 export const Clear_errors = "Clear_error"
