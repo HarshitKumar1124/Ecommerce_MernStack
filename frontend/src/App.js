@@ -39,6 +39,17 @@ import Forget_Reset_Password from  "./components/UserUpdate/Forget_Reset_Passwor
 
 
 import Orders from "./components/Order/Orders.js"
+import Dashboard from "./components/Admin_DashBoard/Dashboard.js";
+
+import Add_Product from "./components/Add_ProductPage/Add_ProductPage.js"
+
+import Admin_ProductList from "./components/Admin_DashBoard/Admin_ProductList.js"
+
+import Admin_OrderList from "./components/Admin_DashBoard/Admin_OrderList.js"
+
+import Admin_UserList from "./components/Admin_DashBoard/Admin_UserList.js"
+
+
 
 function App() {
 
@@ -75,6 +86,7 @@ function App() {
         <Route exact path="/products/:id" element={<ProductDetails/>} />
         <Route exact path="/contact"  element={<Contact/>} />
         <Route exact path="/about"  element={<About/>} />
+        <Route exact path="/products/new" element={<Add_Product/>}/>
 
         <Route  exact path="/search" element={<Search/>}/>
         <Route   path="/product/:keyword" element={<AllProducts/>} />
@@ -92,6 +104,15 @@ function App() {
         <Route exact path="/password/reset/:token" element={<Forget_Reset_Password/>}/>
 
         <Route exact path="/Orders" element={<Orders/>} />
+
+        <Route exact path="/dash_board" element={<Dashboard/>} />
+
+        <Route exact path="/admin_view/products" element={<Admin_ProductList/>} />
+
+        <Route exact path="/admin_view/orders" element={<Admin_OrderList/>} />
+
+        <Route exact path="/admin_view/users" element={<Admin_UserList/>} />
+
       </Routes>
 
       <Footer />

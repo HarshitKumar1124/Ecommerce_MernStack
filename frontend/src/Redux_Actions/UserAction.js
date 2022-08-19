@@ -11,7 +11,15 @@ import {UPDATE_Password_Request,
     FORGET_Password_fail,
     RESET_Password_Request,
     RESET_Password_success,
-    RESET_Password_fail} from "../Redux_Constants/UserConstants"
+    RESET_Password_fail,
+    Get_User_Request,
+    Get_User_fail,
+    Get_User_success,
+    Get_User_Reset,
+    Delete_User_Request,
+    Delete_User_success,
+    Delete_User_fail,
+    Delete_User_Reset} from "../Redux_Constants/UserConstants"
 
 
 
@@ -231,4 +239,68 @@ export const ClearError=()=>async(dispatch)=>{
     dispatch({
         type:Clear_errors
     })
+}
+
+
+//Get All Users for ADMIN
+
+
+export const GetAdminUserList=()=>async(dispatch)=>{
+
+    try{
+        dispatch({
+            type: Get_User_Request
+        })
+
+        const {data}= await axios.get("/api/v1/admin/Users")
+
+        console.log(data)
+
+        dispatch({
+            type: Get_User_success,
+            payload: data.AllUsers
+        })
+
+    }
+    catch(error)
+    {
+        dispatch({
+            type: Get_User_fail,
+            payload: error.response.data.message,
+
+            
+        })
+    }
+
+}
+
+
+//Admin Delete User
+export const DeleteUser = (id)=>async(dispatch)=>{
+
+    try{
+        dispatch({type: Delete_User_Request});
+        console.log("Delete_User_Request post")
+  
+        const {data} =await axios.delete(`/api/v1/admin/delete_user/${id}`);
+
+        console.log(data)
+    
+        dispatch({
+            type:Delete_User_success,
+            payload:data.success
+        })
+
+    }catch(error)
+    {
+
+       console.log("err",error)
+
+        dispatch({
+            type:Delete_User_fail,
+            payload: error.response.data.message,
+
+            
+        })
+    }
 }

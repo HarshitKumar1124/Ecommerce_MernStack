@@ -135,5 +135,13 @@ exports.GetSingleProductDetail = CatchAysncError(async (req,res,next)=>{
 });
 
 
+//FOR ADMIN VIEW PRODUCT LIST OF WEBSITE STOCK
+exports.ADMIN_getAllProduct=CatchAysncError(async(req,res,next)=>{
+    const Allproducts = await Product.find();
+     
+ res.status(200).json({
+    success:true,        
+    Allproducts
+  });
 
-
+});

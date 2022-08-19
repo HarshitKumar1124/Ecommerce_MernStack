@@ -19,6 +19,8 @@ import {useAlert} from "react-alert"
 //to fetch parameters from URL
 import { useParams } from 'react-router-dom';
 
+import {AddItemInCard} from "../../Redux_Actions/CartAction"
+
 const ProductDetails = () => {
 
   const alert = useAlert();
@@ -68,7 +70,7 @@ let options = {
     isHalf:true,
     size: window.innerWidth <600 ? 20:25
   }
-  
+
 
 
 
@@ -132,7 +134,9 @@ let options = {
                           {/* <input type="number" value="1"/> */}
                         </div>
     
-                        <button>ADD TO CART</button>
+                        <button onClick={()=>{
+                          dispatch(AddItemInCard(productDetail._id,value))
+                        }}>ADD TO CART</button>
     
                       </div>
     

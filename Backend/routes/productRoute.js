@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllProduct, CreateProduct,UpdateProduct,DeleteProduct,GetSingleProductDetail } = require("../controller/productController");
+const { getAllProduct, CreateProduct,UpdateProduct,DeleteProduct,GetSingleProductDetail,ADMIN_getAllProduct } = require("../controller/productController");
 
 //to Limit the access to particular type of Users --ADMIN for example
 const {IsUserAuthenticated,AuthoriseRole} = require("../middleware/IsUserAuthenticated")
@@ -24,6 +24,9 @@ router.route("/products/:id").delete(IsUserAuthenticated,AuthoriseRole("admin"),
 
 // Get Product Details of any specific Product
 router.route("/products/:id").get(GetSingleProductDetail);
+
+
+router.route("/admin_view/products").get(IsUserAuthenticated,AuthoriseRole('admin'),ADMIN_getAllProduct);
 
 
 

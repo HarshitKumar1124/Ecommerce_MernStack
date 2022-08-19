@@ -3,6 +3,9 @@
   padding: 0;
   scroll-behavior: smooth;
 }
+body{
+  cursor: url("./cursor.jpg"),auto !important;
+}
 
 
 /* chrome,safari,edge and opera */

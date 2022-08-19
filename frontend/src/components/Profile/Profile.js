@@ -45,7 +45,7 @@ const Profile = ({user}) => {
                 </div>
 
                 <div>
-                    <h4>Jaoined On</h4>
+                    <h4>Joined On</h4>
                     <p>{String(user.createdAt).substr(0,10)}</p>
                 </div>
 

@@ -35,4 +35,14 @@ export const RESET_Password_Request = "RESET_Password_Request";
 export const RESET_Password_success = "RESET_Password_success";
 export const RESET_Password_fail = "RESET_Password_fail";
 
+export const Get_User_Request = "Get_User_Request";
+export const Get_User_success = "Get_User_success";
+export const Get_User_fail = "Get_User_fail";
+export const Get_User_Reset = "Get_User_Reset"
+
+export const Delete_User_Request = "Delete_User_Request";
+export const Delete_User_success = "Delete_User_success";
+export const Delete_User_fail = "Delete_User_fail";
+export const Delete_User_Reset = "Delete_User_Reset"
+
 export const Clear_errors = "Clear_error"

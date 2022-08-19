@@ -12,7 +12,15 @@ import {UPDATE_Password_Request,
     FORGET_Password_fail,
     RESET_Password_Request,
     RESET_Password_success,
-    RESET_Password_fail} from "../Redux_Constants/UserConstants";
+    RESET_Password_fail,
+    Get_User_Request,
+    Get_User_fail,
+    Get_User_success,
+    Get_User_Reset,
+    Delete_User_Request,
+    Delete_User_success,
+    Delete_User_fail,
+    Delete_User_Reset} from "../Redux_Constants/UserConstants";
 
 
 
@@ -171,4 +179,82 @@ export const forgetPasswordReducer = (state={},action)=>{
         default:
             return state
     }
+}
+
+
+//Get UserList Reducer
+export const GetUserListReducer = (state={Users:[]},action)=>{
+
+    switch(action.type)
+    {
+        case Get_User_Request:
+            return{
+
+                loading:true,
+                Users:[{}],
+                
+
+            };
+    
+        case Get_User_fail:
+            return{
+                loading:false,
+                error:action.payload
+
+            };
+             case Get_User_success:
+            return{
+                loading:false,
+                allUser:action.payload
+            } 
+        case Clear_errors:
+            return{
+                ...state,
+                error:null
+            }
+        default:
+            return state
+    }
+}
+
+
+//Delete User Reducer
+export const DeleteUser_Reducer=(state={},action)=>{
+
+    switch(action.type)
+    {
+        case Delete_User_Request:
+            return {
+                ...state,
+                loading:true,
+            };
+        case Delete_User_success:
+            return{
+                ...state,
+                loading:false,
+                isDeleted:action.payload
+               
+            };
+        case Delete_User_fail:
+            return{
+                ...state,
+                loading:false,
+                error:action.payload
+            };
+            case Delete_User_Reset:
+                return{
+                    ...state,
+                    isDeleted:false
+                };
+        case Clear_errors:
+            return{
+                ...state,
+                error:null,
+            };
+        default:
+            return state;
+
+    }
+
+
 }

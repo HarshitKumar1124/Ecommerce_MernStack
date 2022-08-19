@@ -88,6 +88,7 @@ const AllProducts = () => {
             <Fragment>
                 
                 <h2 className='productsHeading'>Products</h2>
+                
                 <div className='products-container'>
                     {
                         product && product.map((items)=>{

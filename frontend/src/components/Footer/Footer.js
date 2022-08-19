@@ -4,6 +4,11 @@ import appStore from "../../AppStore.png"
 import "./Footer.css"
 
 const Footer = () => {
+
+  const date = new Date();
+
+  console.log(date)
+  
   return (
     <>
     <footer id="footer">
@@ -21,16 +26,16 @@ const Footer = () => {
 
             <h1>Ecommerce</h1>
             <p>High Quality is our first priority</p>
-            <p>Copyrights 2021 &copy; - <span>Harshit Kumar</span></p>
+            <p>Copyrights {date.getFullYear()} &copy; - <span>Harshit Kumar</span></p>
         
         </div>
 
         <div className='rightFooter'>
 
             <h4>Follow Us</h4>
-            <a href="/" target="_blank" title="Instagram">Instagram</a>
-            <a href="/" target="_blank" title="Youtube">Youtube</a>
-            <a href="/" target="_blank" title="FaceBook">FaceBook</a>
+            <a href="https://www.instagram.com/harshitdreams8a_/" target="_blank" title="Instagram">Instagram</a>
+            <a href="https://www.youtube.com/c/WTCsociety" target="_blank" title="Youtube">Youtube</a>
+            <a href="https://www.linkedin.com/in/harshit-kumar-9b4474206/" target="_blank" title="LinkedIN">LinkedIN</a>
 
         </div>
 
