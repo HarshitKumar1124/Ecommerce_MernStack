@@ -9,6 +9,8 @@ import "./DisplayUserList.css"
 
 import {DeleteUser,ClearError} from "../../Redux_Actions/UserAction"
 import { Delete_User_Reset } from '../../Redux_Constants/UserConstants';
+import { Link } from 'react-router-dom';
+import LaunchIcon from '@material-ui/icons/Launch';
 
 const DisplayUserList = ({ToDisplay,item}) => {
 
@@ -48,33 +50,56 @@ const DisplayUserList = ({ToDisplay,item}) => {
   //Enter DataGrid Colums
   const columns = [
     {
+      field:"viewInfo",
+      headerName:"View User Info",
+      flex:0.39,
+      renderCell: (params) => {
+        return (
+          <>
+            <Button onClick={()=>Navigate(`/Admin_view/UserInfo/${params.id}`)}>
+              <LaunchIcon />
+            </Button>
+          </>
+        );
+      },
+
+
+    },
+    {
       field: "id",
-      headername: "User ID",
-      
+      headerName: "User ID",  
       flex: 0.5,
+      
     },
     {
       field: "name",
-      headername: "Name",
+      headerName: "Name",
       minWidth: 100,
-      flex: 1,
+      flex: .5,
     },
     {
         field: "email",
-        headername: "email",
-        flex: 0.5,
+        headerName: "Email",
+        flex: 0.7,
        
       },
     {
       field: "UserType",
-      headername: "UserType",
+      headerName: "UserType",
       minWidth: 150,
       flex: 0.5,
+      editable: true,
+      type: "singleSelect",
+      valueOptions: ["admin", "user"],
+      onClick:()=>{
+        console.log("HIiis")
+      }
+      
      
     },
     {
-      field: "action",
-      headername: "Action",
+      field: "Action",
+      headerName: "Action",
       
       flex: 0.3,
       type: "number",
@@ -115,6 +140,8 @@ const DisplayUserList = ({ToDisplay,item}) => {
           disableSelectionOnClick
           autoHeight
           className="UserListTable"
+          
+          
         />
     </div>
   )

@@ -1,5 +1,5 @@
 .General_Icon_Bar{
-    border: 2px solid red;
+    /* border: 2px solid rgb(0, 0, 0); */
     position: fixed;
     width: 100%;;
 
@@ -30,7 +30,7 @@
     margin: .5vmax .1vmax;
     font: 400 1.5vmax "Quantico";
     transition: all 0.5s;
- 
+    z-index: 10;
 
 
 }

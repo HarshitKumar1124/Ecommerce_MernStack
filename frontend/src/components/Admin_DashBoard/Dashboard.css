@@ -5,7 +5,7 @@
 }
 
 .DashBoard_Container{
-    border:2px solid greenyellow;
+    /* border:2px solid greenyellow; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,7 +34,7 @@
 }
 
 .DashBoard_Summary{
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: 100%;
 }
 
@@ -44,7 +44,7 @@
     color: white;
     justify-content: center;
     width: 100%;
-    border: 2px solid greenyellow;
+    /* border: 2px solid greenyellow; */
     margin:.2vmax;
     padding:1vmax;
 }

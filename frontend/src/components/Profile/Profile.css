@@ -1,5 +1,5 @@
 .profileContainer{
-    border:2px solid Black;
+    /* border:2px solid Black; */
     display: flex;
     width: 100vw;
     height: 100vh;
@@ -10,7 +10,7 @@
 
 .profileContainer > div {
 
-    border: 2px dotted rgb(17, 0, 255);
+    /* border: 2px dotted rgb(17, 0, 255); */
     display: flex;
     height: 100vh;
     width: 100vw;
@@ -24,7 +24,7 @@
 
 .profileContainer >div:nth-child(1) > h1{
     color: rgba(0,0,0,.555);
-    border: 2px solid green;
+    /* border: 2px solid green; */
     width: 65%;
     text-align: right;
     transform: translateX(-10vmax) translateY(-2vmax);
@@ -82,21 +82,37 @@
 
 .profileContainer >div:last-child{
     box-sizing: border-box;
-    border: 2px solid yellow;
+    /* border: 2px solid black; */
     align-items: flex-start;
     justify-content: space-evenly;
 }
 
 .profileContainer >div:last-child>div{
-    border: 2px solid blue;
-    padding: 3vmax 0vmax;
+    /* border: 2px solid blue; */
+    padding: 1vmax 0vmax;
+    display: flex;
+    align-items: center;
     width: 100%;
 
 }
 
+.profileContainer >div:last-child>div > svg{
+    margin: 1vmax;
+}
+.profileContainer >div:last-child>div > a{
+
+    color: blue;
+    transition: all .5s;
+
+}
+
+.profileContainer >div:last-child>div > a:hover{
+    transform:scale(1.05)
+}
+
 .profileContainer >div:last-child>div>h4{
     color: black;
-    font: 400 1.2vmax 'Roboto';
+    font: 400 1vmax 'Roboto';
 
 }
 
@@ -110,27 +126,28 @@
 
 .profileContainer>div:last-child>div:last-child{
     display: flex;
-    flex-direction: column;
-    width: 60%;
+    justify-content: space-around;
 
 }
 
-.profileContainer>div:last-child>div:last-child>a{
+.profileContainer>div:last-child>div:last-child>Button{
 
 
     border: none;
     background-color: rgb(68,68,68);
     font: 400 1vmax 'Roboto';
-    color: white;
+    
     text-decoration: none;
     padding: .5vmax;
     text-align: center;
     transition: all 0.5s;
     margin: 1vmax 0vmax;
+    transition: all .5;
 
 }
-.profileContainer>div:last-child>div:last-child>a:hover{
-    background-color: rgba(31,31,31);
+
+.profileContainer>div:last-child>div:last-child>Button:hover{
+    transform: scale(1.1);
 }
 
 

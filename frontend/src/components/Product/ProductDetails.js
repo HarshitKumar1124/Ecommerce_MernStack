@@ -4,7 +4,7 @@ import React,{Fragment, useEffect, useState} from 'react'
 import "./ProductDetails.css"
 
 import {useDispatch,useSelector} from  "react-redux"
-import { ClearError, getProductDetails } from '../../Redux_Actions/ProductAction'
+import { ClearError, getProductDetails, newReview } from '../../Redux_Actions/ProductAction'
 
 import MetaData from "../Layout/MetaData";
 import Loader from '../Loader/Loader'
@@ -17,17 +17,45 @@ import {useAlert} from "react-alert"
 
 
 //to fetch parameters from URL
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {AddItemInCard} from "../../Redux_Actions/CartAction"
+
+
+
+//review imports
+
+import {Dialog,
+DialogActions,
+DialogContent,
+DialogTitle,
+Button,
+
+} from "@material-ui/core"
+
+import {Rating} from "@material-ui/lab"
+import { NEW_REVIEW_RESET } from '../../Redux_Constants/ProductConstants';
+
+
+
+
+
+
+
+
+
 
 const ProductDetails = () => {
 
   const alert = useAlert();
 
   const dispatch = useDispatch();
+  const Navigate = useNavigate()
 
   const fetchParams = useParams();
+
+
+  const {user,isAuthenticated} = useSelector((state)=>state.loginUser)
 
 
   const {productDetail,loading,error} = useSelector((state)=> state.productDetails)
@@ -47,6 +75,9 @@ const ProductDetails = () => {
 
 
 
+  //fetching reviews
+  const {success,error:reviewError} = useSelector(state=>state.newReview);
+
 
   useEffect(() => {
 
@@ -55,12 +86,23 @@ const ProductDetails = () => {
       alert.error(error);
       dispatch(ClearError())
     }
+
+    if(reviewError)
+    {
+      alert.error(reviewError);
+      dispatch(ClearError())
+    }
+
+    if(success)
+    {
+      dispatch({type: NEW_REVIEW_RESET})
+    }
    
 
 
   dispatch(getProductDetails(fetchParams.id));
 
-  }, [dispatch])
+  }, [dispatch,reviewError,success,alert])
 
 let options = {
     edit:false,
@@ -72,6 +114,51 @@ let options = {
   }
 
 
+  const AddCartHandler =()=>{
+
+
+     if(isAuthenticated)
+      dispatch(AddItemInCard(productDetail._id,value,user))
+     else
+     {
+      Navigate("/login_signup")
+     }
+     
+  }
+
+  const [Open, setOpen] = useState(false)
+  const [ rating,setRating] = useState(0);
+  const [comment,setComment] = useState("")
+
+
+
+  const submitReviewToggle=()=>{
+    Open?setOpen(false):setOpen(true)
+  }
+
+
+
+
+
+  const ReviewSubmitHandler =(e)=>{
+    e.preventDefault();
+    submitReviewToggle();
+
+    const myform = {
+
+      'rating':rating,
+      'comment':comment,
+      'productID':fetchParams.id,
+
+    }
+   
+
+    console.log(myform)
+
+    dispatch(newReview(myform))
+
+   
+  }
 
 
   return (
@@ -81,14 +168,16 @@ let options = {
             
             {
               loading?<Loader/> :(<Fragment>
-              <MetaData title="Product | Shefali Maam" />
+              <MetaData title="Product" />
               {
               typeof(productDetail)==="undefined" ? <h1>Please Wait</h1>:(<Fragment>
               
-                <div style={{border:"3px solid green"}}>
+                <div >
+                {/* style={{border:"3px solid green"}} */}
                     
 
-                    <div className='carousel' style={{border:"3px solid red"}}>
+                    <div className='carousel' >
+                    {/* style={{border:"3px solid red"}} */}
                     {
                      
                         
@@ -104,8 +193,10 @@ let options = {
                     </div>
                 </div>
     
-                  <div style={{border:"3px solid yellow"}}>
-                    <div className='DetailBlock-1' style={{border:"3px solid red"}}>
+                  <div style={{borderLeft:"2px solid black"}}>
+                  {/* style={{border:"3px solid yellow"}} */}
+                    <div className='DetailBlock-1' >
+                    {/* style={{border:"3px solid red"}} */}
     
                       <h2>{productDetail.name}</h2>
                       <p>Product #ID - {productDetail._id} </p>
@@ -113,14 +204,16 @@ let options = {
                     </div>
     
                      
-                    <div className='DetailBlock-2' style={{border:"3px solid blue"}}>
+                    <div className='DetailBlock-2' >
+                    {/* style={{border:"3px solid blue"}} */}
                       <span style={{display:"none"}}>{options.value = productDetail.rating}</span>
                       <Reactstart {...options} />
                       <span>NO. OF REVIEWS - {productDetail.numberOfReviews}</span>
     
                     </div>
                      
-                    <div className='DetailBlock-3' style={{border:"3px solid black"}}> 
+                    <div className='DetailBlock-3'> 
+                    {/* style={{border:"3px solid black"}} */}
     
                       <h1> ₹ {productDetail.price}/-</h1>
     
@@ -134,9 +227,7 @@ let options = {
                           {/* <input type="number" value="1"/> */}
                         </div>
     
-                        <button onClick={()=>{
-                          dispatch(AddItemInCard(productDetail._id,value))
-                        }}>ADD TO CART</button>
+                        <button disabled={productDetail.stock<1 ? true:false} className={productDetail.stock <1 ? "disabledOn" : "disabledOFF"} onClick={AddCartHandler}>ADD TO CART</button>
     
                       </div>
     
@@ -149,12 +240,13 @@ let options = {
     
                     </div>
                     
-                    <div className='DetailBlock-4'style={{border:"3px solid dodgerblue"}}>
+                    <div className='DetailBlock-4'>
+                    {/* style={{border:"3px solid dodgerblue"}} */}
     
                       Description : {productDetail.description}
                     </div>
     
-                    <button className='submitReview'>SUBMIT REVIEW</button>
+                    <button onClick={submitReviewToggle} className='submitReview'>SUBMIT REVIEW</button>
     
     
                 </div>
@@ -170,6 +262,44 @@ let options = {
         
         <div className='reviewsHeading'>
           <h1>Reviews</h1>
+
+          <Dialog
+          aria-labelledby="simple-dialog-title"
+          open={Open}
+          onClose={submitReviewToggle}
+          >
+
+            <DialogTitle>SUBMIT REVIEW</DialogTitle>
+            <DialogContent
+            className='submitDialog'
+            >
+              <Rating
+              onChange={(e)=>setRating(e.target.value)}
+              value={rating}
+              size="large"
+              />
+
+              <textarea
+              
+              className='submitDialogTextArea'
+                cols="30"
+                rows="5"
+                value={comment}
+                onChange={(e)=> setComment(e.target.value)}
+                >
+
+              </textarea>
+
+            </DialogContent>
+
+            <DialogActions>
+              <Button onClick={submitReviewToggle} color="secondary" >Cancel</Button>
+              <Button color="primary" onClick={ReviewSubmitHandler} >Submit</Button>
+            </DialogActions>
+
+          </Dialog>
+
+
           <div className='ReviewContainer'>
             {
               typeof(productDetail)==="undefined" ? <p className='noReviews'>Loading Reviews</p>:(<Fragment>

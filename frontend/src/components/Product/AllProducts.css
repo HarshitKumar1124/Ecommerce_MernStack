@@ -6,7 +6,7 @@ li{
 .productsHeading{
     margin: 2vmax auto;
     width: 15vw;
-    border-bottom: 1px solid rgba(0,0,0,.171);
+    /* border-bottom: 1px solid rgba(0,0,0,.171); */
     padding: 2vmax;
     color: rgba(0,0,0,.671);
     font: 500 1.5vmax "Roboto";
@@ -15,7 +15,7 @@ li{
 
 .products-container{
     display: flex;
-    border:2px solid black;
+    /* border:2px solid black; */
     flex-wrap: wrap;
     padding: 0 5vmax;
     justify-content: center;
@@ -28,14 +28,14 @@ li{
 /* Pagination CSS */
 
 .paginationBox{
-    border:2px solid orange;
+    /* border:2px solid orange; */
     display: flex;
     justify-content: center;
     margin: 6vmax;
 }
 
 .pagination{
-    border: 2px solid greenyellow;
+    /* border: 2px solid greenyellow; */
     display: flex;
     justify-content: center;
     padding: 1vmax;
@@ -43,7 +43,7 @@ li{
 
 .page-item{
     background-color: white;
-    border: 2px solid rgba(0,0,0,.178);
+    /* border: 2px solid rgba(0,0,0,.178); */
     padding: 1vmax 1.5vmax;
     transition: all 0.5s;
     cursor: pointer;
@@ -89,14 +89,14 @@ li{
 /* FilterBox CSS */
 
 .FilterBox{
-    border:2px solid black;
+    /* border:2px solid black; */
     display: flex;
     justify-content: center;
 }
 
 .filterBox{
  width: 80%;
- border: 2px solid orange;
+ /* border: 2px solid orange; */
  text-align: center;
  margin: 1vmax;
  padding: 1vmax;
@@ -116,14 +116,14 @@ li{
 
 /* CategoryFilter */
 .CategoryContainer{
-    border:2px dotted blue;
+    /* border:2px dotted blue; */
     display: flex;
     justify-content: center;
 }
 
 .CategoryFilter{
     width: 80%;
- border: 2px solid orange;
+ /* border: 2px solid orange; */
  text-align: center;
  margin: 1vmax;
  padding: 1vmax;
@@ -131,7 +131,7 @@ li{
 }
 
 .CategoryFilter>ul{
-    border: 2px dotted greenyellow;
+    /* border: 2px dotted greenyellow; */
     display: flex;
     justify-content: center;
 }
@@ -149,7 +149,7 @@ li{
 
 .category-link{
 
-    border: 2px solid rgb(160, 158, 158);
+    /* border: 2px solid rgb(160, 158, 158); */
     padding: 1vmax;
     transition: all 0.5s;
     font: 300 1vmax 'Roboto';

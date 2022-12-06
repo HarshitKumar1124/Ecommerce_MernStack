@@ -46,3 +46,13 @@ export const Delete_User_fail = "Delete_User_fail";
 export const Delete_User_Reset = "Delete_User_Reset"
 
 export const Clear_errors = "Clear_error"
+
+export const Get_Specific_User_Detail_REQUEST = "Get_Specific_User_Detail_REQUEST"
+export const Get_Specific_User_Detail_SUCCESS = "Get_Specific_User_Detail_SUCCESS"
+export const Get_Specific_User_Detail_FAIL = "Get_Specific_User_Detail_FAIL"
+
+
+export const UPDATE_ShippingInfo_Request="UPDATE_ShippingInfo_Request";
+export const UPDATE_ShippingInfo_success="UPDATE_ShippingInfo_success";
+export const UPDATE_ShippingInfo_fail="UPDATE_ShippingInfo_fail";
+export const UPDATE_ShippingInfo_Reset="UPDATE_ShippingInfo_Reset";

@@ -61,6 +61,54 @@ const UserSchema = new mongoose.Schema({
             required: true,
         }
     },
+
+    shippingInfo:{
+
+        Locality:{
+            type: String,
+            default:"",
+        },
+
+        CountryName:{
+            type:String,
+            default:""
+        },
+
+        City:{
+            type:String,
+            default:"",
+        },
+
+        State:{
+            type:String,
+            default:"",
+        },
+        Pincode:{
+            type:Number,
+            default:000000,
+            maxlength:[6,"Please Enter Valid 6 Digit PIN Code"]
+
+        },
+        Contact:{
+            type:Number,
+            default:0000000000,
+            maxlength:[10,"Enter 10 Digit Mobile Number"]
+        }
+    },
+
+    socialHandles:{
+
+        LinkedIN:{
+            type:String,
+            default:""
+        },
+
+        GitHub:{
+            type:String,
+            default:""
+
+        },
+    },
    
     userType:{
         type:String,
@@ -84,7 +132,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre("save",async function(next){
 
-     console.log("hiii")
+    //  console.log("hiii")
     //incase of updating if password is not modified then it will hash the already hashed password
     if(!this.isModified('password')){                        
         next();
@@ -122,30 +170,6 @@ UserSchema.methods.comparePassword=async function(inputPassword)
 }
 
 
-//Generating Password to RESET Password
-
-UserSchema.methods.getResetPasswordToken =()=>{
-
-    //Generating Click token i.e. link to reset the User Account Password
-    const resetToken = crypto.randomBytes(20).toString("hex");
-
-    console.log(this.resetPasswordToken,this.resetPasswordExpire)
-    //it will hash the generated token link
-    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-
-    
-    //Limiting the applicable time reset password hashed token (here 15min)
-    this.resetPasswordExpire = Date.now() + 15*60*1000; 
-
-   
-    
-    console.log(this.resetPasswordToken,this.resetPasswordExpire)
-
-    return resetToken;
-
-
-
-}
 
 
 module.exports = mongoose.model("Users",UserSchema);

@@ -7,11 +7,30 @@ const path=require("path")
 
 app.use(express.json());
 
+//Route Import For Cart Items
+
+// let CartIs = require("./routes/CartItemsRoute");
+
+// app.use("/api/v1",CartIs);
+
 //Route Import for Product
 
 const product = require("./routes/productRoute");
 
 app.use("/api/v1",product);
+
+
+
+
+
+
+
+//Route Import for Orders
+const Orders = require("./routes/OrderRoute")
+
+app.use('/api/v1',Orders)
+
+
 
 ///////////////////////////////////
 
@@ -32,6 +51,11 @@ app.use(cookieParser());
 
 ////////////////////////////////////////////////
 
+//Route Import for Payment Processing Test
+const Payment = require("./routes/PaymentRoute")
+
+app.use('/api/v1',Payment)
+
 // cloudinary related import
 
 const bodyParser = require('body-parser')
@@ -41,19 +65,20 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(fileUpload)
 
 
-//Route Import for Orders
-const Orders = require("./routes/OrderRoute")
 
-app.use('/api/v1',Orders)
 
-if(process.env.NODE_ENV=="production")
-{
-    app.use(express.static(path.join(__dirname,"../frontend/build")))
 
-    app.get("*",(req,res)=>{
-        res.sendFile(path.resolve(__dirname,"../frontend/build/index.html"))
-    })
-}
+
+
+
+// if(process.env.NODE_ENV=="production")
+// {
+//     app.use(express.static(path.join(__dirname,"../frontend/build")))
+
+//     app.get("*",(req,res)=>{
+//         res.sendFile(path.resolve(__dirname,"../frontend/build/index.html"))
+//     })
+// }
 
 
 

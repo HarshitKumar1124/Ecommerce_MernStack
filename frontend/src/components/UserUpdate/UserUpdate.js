@@ -3,6 +3,7 @@ import ImageIcon from '@material-ui/icons/Image'
 import FaceIcon from '@material-ui/icons/Face'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import { useAlert } from 'react-alert';
+import {Button} from '@material-ui/core'
 
 import './UserUpdate.css'
 
@@ -10,7 +11,7 @@ import './UserUpdate.css'
 import { useDispatch, useSelector } from 'react-redux';
 
 import {userUpdate,ClearError,LoadUser} from '../../Redux_Actions/UserAction'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 
 
@@ -80,6 +81,8 @@ const UserUpdate = () => {
     <Fragment>
 
         <div className="UserUpdateContainer">
+    <Button id="UpdateShippingInfo"><Link tag="a" title="Update Shipping Info" to="/MyProfile/update/ShippingInfo" >Update Shipping Info</Link></Button>
+
             <div className='UserUpdateBox'>
             
 

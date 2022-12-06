@@ -16,13 +16,18 @@ const Product = ({Product}) => {
     size: window.innerWidth <600 ? 20:25
   }
 
+  
+
 
   return (
+
+
+ 
   
      <>
-     <Link className='ProductCard' style={{border:"1px solid Black"}} to={`/products/${Product._id}`}>
-        <img src={logo} alt={Product.name} title={Product.name}/>
-        <p>{Product.name}</p>
+     <Link className='ProductCard' to={`/products/${Product._id}`}>
+        <div><img src={Product.productImage[0].image_url} alt={Product.name} title={Product.name}/></div>
+        <p>{Product.name} </p>
 
         <div>
           <ReactStar {...options} />

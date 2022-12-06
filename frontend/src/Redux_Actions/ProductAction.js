@@ -16,13 +16,24 @@ import { All_Product_Request,
     DELETE_Product_Request,
     DELETE_Product_success,
     DELETE_Product_fail,
-DELETE_Product_Reset} from "../Redux_Constants/ProductConstants";
+DELETE_Product_Reset,
+
+
+NEW_REVIEW_REQUEST,
+NEW_REVIEW_SUCCESS,
+NEW_REVIEW_FAIL,
+NEW_REVIEW_RESET,
+UPDATE_REQUEST,
+UPDATE_SUCCESS,
+UPDATE_FAIL
+
+} from "../Redux_Constants/ProductConstants";
 
 
 export const getProduct = (keyword="",currentpage=1,price=[0,15000],Category)=>async(dispatch)=>{
 
     try{
-        console.log("hiiiiiiiiiis")
+        // console.log("hiiiiiiiiiis")
         dispatch({
             type:All_Product_Request
         })
@@ -38,7 +49,7 @@ export const getProduct = (keyword="",currentpage=1,price=[0,15000],Category)=>a
     
         // console.log(ProductsDB )
         //  console.log(ProductsDB.data)
-        console.log(data)
+        // console.log(data)
         // console.log(ProductsDB.data.Allproducts)
 
        
@@ -51,7 +62,7 @@ export const getProduct = (keyword="",currentpage=1,price=[0,15000],Category)=>a
     }catch(error)
     {
 
-       console.log("err",error)
+    //    console.log("err",error)
 
         dispatch({
             type:All_Product_fail,
@@ -75,7 +86,7 @@ export const ClearError=()=>async(dispatch)=>{
 
 export const getProductDetails = (id)=> async(dispatch)=>{
 
-console.log("Get details")
+// console.log("Get details")
 
     try{
 
@@ -83,12 +94,12 @@ console.log("Get details")
             type:Product_Details_Request
         })
 
-        console.log("ssssss_details")
+        // console.log("ssssss_details")
         const {data}= await axios.get(`/api/v1/products/${id}`)
     
         // console.log(ProductsDB )
         //  console.log(ProductsDB.data)
-        console.log(data)
+        // console.log(data)
         // console.log(ProductsDB.data.Allproducts)
 
        
@@ -101,7 +112,7 @@ console.log("Get details")
     }catch(error)
     {
 
-       console.log("err",error)
+    //    console.log("err",error)
 
         dispatch({
             type:Product_Details_fail,
@@ -120,6 +131,8 @@ export const CreateProduct = (ProductData)=>async(dispatch)=>{
         console.log("Add_Product_Request post")
   
         const {data} =await axios.post(`/api/v1/products/new`,ProductData);
+
+        console.log(data)
        
         dispatch({
             type:Add_Product_success,
@@ -129,7 +142,7 @@ export const CreateProduct = (ProductData)=>async(dispatch)=>{
     }catch(error)
     {
 
-       console.log("err",error)
+    //    console.log("err",error)
 
         dispatch({
             type:Add_Product_fail,
@@ -175,7 +188,7 @@ export const DeleteProduct = (id)=>async(dispatch)=>{
 
     try{
         dispatch({type: DELETE_Product_Request});
-        console.log("Add_Product_Request post")
+        // console.log("Add_Product_Request post")
   
         const {data} =await axios.delete(`/api/v1/products/${id}`);
        
@@ -187,7 +200,7 @@ export const DeleteProduct = (id)=>async(dispatch)=>{
     }catch(error)
     {
 
-       console.log("err",error)
+    //    console.log("err",error)
 
         dispatch({
             type:DELETE_Product_fail,
@@ -196,4 +209,71 @@ export const DeleteProduct = (id)=>async(dispatch)=>{
             
         })
     }
+}
+
+
+
+
+
+//For Review Addition
+
+export const newReview = (reviewData)=> async (dispatch)=>{
+
+
+    // console.log("review submit aaya to",reviewData)
+
+
+    try{
+        dispatch({type:NEW_REVIEW_REQUEST})
+
+        const {data} = await axios.put(`/api/v1/review`,reviewData);
+
+        // console.log(data)
+
+        dispatch({
+            type:NEW_REVIEW_SUCCESS,
+            payload:data.success,
+        })
+    }catch(error)
+    {
+        dispatch({
+            type:NEW_REVIEW_FAIL,
+            payload:error.response.data.message,
+        })
+    }
+}
+
+
+
+//Update Product
+
+export const UpdateProduct=(id,productNewData)=>async(dispatch)=>{
+
+
+    try{
+    dispatch({type:UPDATE_REQUEST})
+
+    console.log("Update K Liye A a gaya")
+
+    const {data} = await axios.put(`/api/v1/products_Update/${id}`,productNewData)
+
+
+     console.log(data)
+
+    
+    dispatch({
+        type:UPDATE_SUCCESS,
+        payload:data.success,
+    })
+   }
+   catch(error)
+   {
+    dispatch({
+        type:UPDATE_FAIL,
+        payload:error.response.data.message
+    })
+
+    console.log("roor")
+   }
+
 }

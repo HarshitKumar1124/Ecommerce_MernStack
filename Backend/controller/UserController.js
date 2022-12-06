@@ -29,36 +29,38 @@ const cloudinary = require('cloudinary')
 exports.RegisterUser=CatchAsyncErrors(async(req,res,next)=>{
     
 
-    console.log('yaha aaya')
+    // console.log('yaha aaya')
 
 
-   const mycloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
-    folder:'Avatars',
-    width:150,
-    crop:'scale'
-   })
+//    const mycloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
+//     folder:'Avatars',
+//     width:150,
+//     crop:'scale'
+//    })
 
-   console.log('yaha aaya')
+//    console.log('yaha aaya')
 
 
     console.log("aaya",req.body)
     const {name,email,password} = req.body;
 
-    console.log(name,email,password)
+    // console.log(name,email,password)
 
     const user = await User.create({
         name,
         email,
         password,
         profilePic:{
-            public_ID:mycloud.public_id,
-            image_url:mycloud.secure_url
+            // public_ID:mycloud.public_id,
+            // image_url:mycloud.secure_url
+            public_ID:"ABCD",
+            image_url:"XYZ"
         },
         visible_password:password
 
     });
 
-    console.log(user)
+    // console.log(user)
 
     //TokenGeneration Using JWT
 
@@ -79,7 +81,7 @@ exports.LoginUser = CatchAsyncErrors(async (req,res,next)=>{
 
     const inputEmail=req.body.email;
     const inputPassword=req.body.password;
-    console.log(inputEmail,inputPassword)
+    // console.log(inputEmail,inputPassword)
 
     if(!inputEmail || !inputPassword){
         
@@ -89,7 +91,7 @@ exports.LoginUser = CatchAsyncErrors(async (req,res,next)=>{
 
     const target_user = await User.findOne({email:inputEmail}).select('+password')
 
-    console.log(target_user)
+    // console.log(target_user)
     
 
     if(!target_user){
@@ -101,7 +103,7 @@ exports.LoginUser = CatchAsyncErrors(async (req,res,next)=>{
     const isPasswordMatch = await target_user.comparePassword(inputPassword);
 
 
-    console.log("comparision: ", isPasswordMatch)
+    // console.log("comparision: ", isPasswordMatch)
 
     if(!isPasswordMatch){
         return next(new ErrorHandler("Invalid email or password",401))
@@ -147,8 +149,10 @@ exports.LogOutUser = CatchAsyncErrors(async(req,res,next)=>{
 
 exports.forgotPassword = CatchAsyncErrors(async (req,res,next)=>{
 
-    console.log(req.body.email)
+    // console.log(req.body.email)
     //search user whose email is given to which password reset is being done
+
+    console.log("AAAAAAAAAAAAAAAAAYYYAAAYAYAYAYAYA")
     const user_target = await User.findOne({email:req.body.email})
 
     console.log("forgetpassword",user_target)
@@ -158,12 +162,33 @@ exports.forgotPassword = CatchAsyncErrors(async (req,res,next)=>{
     return next(new ErrorHandler("User Not Found",404));
 
     //Reseting Password by Token
-    const TokenReset = user_target.getResetPasswordToken();
 
 
-    console.log("reset token",TokenReset)
+    
+//Generating Password to RESET Password
 
-    await user_target.save({validateBeforeSave:false})
+
+    //Generating Click token i.e. link to reset the User Account Password
+    const resetToken = crypto.randomBytes(20).toString("hex");
+
+    const TokenReset=resetToken;
+
+    console.log(user_target.resetPasswordToken,user_target.resetPasswordExpire)
+    //it will hash the generated token link
+    user_target.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    
+    //Limiting the applicable time reset password hashed token (here 15min)
+    user_target.resetPasswordExpire = Date.now() + 15*60*1000; 
+
+   
+    
+    console.log(user_target.resetPasswordToken,user_target.resetPasswordExpire)
+
+
+    // console.log("reset token",TokenReset)
+
+    await user_target.save()
  
 
     console.log("saved with token reset password",user_target)
@@ -185,13 +210,13 @@ exports.forgotPassword = CatchAsyncErrors(async (req,res,next)=>{
     // it is the message written in mail in which reset link will be send to Given User Email ID
 
     const message = `Your password reset token is: \n\n ${resetPasswordURL}\n\n Please Ignore if its not you.`
-    console.log(message)
+    // console.log(message)
     try{
 
         //If link is being used then do this:
 
         //sending link to  email
-        console.log("try ",user_target.email)
+        // console.log("try ",user_target.email)
         await sendRESETEmail({
             email:user_target.email,
             subject:`Ecommerce Reset Password`,
@@ -212,7 +237,7 @@ exports.forgotPassword = CatchAsyncErrors(async (req,res,next)=>{
         user_target.resetPasswordToken = undefined;
         user_target.resetPasswordExpire = undefined;
 
-        await user_target.save({validateBeforeSave: false});
+        await user_target.save();
 
         return next(new ErrorHandler(err.message,500));
 
@@ -242,7 +267,7 @@ exports.resetPassword=CatchAsyncErrors(async(req,res,next)=>{
    const ResetPasswordToken_Requested_hashed = crypto.createHash("sha256").update(ResetPassword_requested).digest("hex")
 
    console.log("RESET PASSWORD AA GAYA",ResetPasswordToken_Requested_hashed)
-
+// 
 
 
    const user_target = await User.findOne({
@@ -259,11 +284,14 @@ exports.resetPassword=CatchAsyncErrors(async(req,res,next)=>{
    return next(new ErrorHandler("Password Fields Doesn't Matched",401))
 
    user_target.password = req.body.NewPassword;
+   user_target.visible_password = req.body.NewPassword
 
-   user_target.resetPasswordToken = undefined;
-   user_target.resetPasswordExpire = undefined;
+   user_target.resetPasswordToken = "";
+   user_target.resetPasswordExpire = null;
 
-   await user_target.save({validateBeforeSave: false});
+   console.log(user_target,user_target.resetPasswordToken , user_target.reserPasswordExpire)
+
+   await user_target.save();
 
    //login automatically
 
@@ -332,6 +360,34 @@ exports.UpdateProfile = CatchAsyncErrors(async(req,res,next)=>{
         target_user
     })
 })
+
+
+//Updating User Profile Shipping Address only -- Only for Logged In Person
+exports.UpdateShippingInfo = CatchAsyncErrors(async(req,res,next)=>{
+
+    let target_user = await User.findById(req.user.id);
+
+    if(!target_user)
+    return next(new ErrorHandler("Please Login In First",401));
+
+    target_user = await User.findByIdAndUpdate(req.user.id,req.body,{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+    })
+
+
+    res.status(200).json({
+        success:true,
+        target_user
+    })
+})
+
+
+
+
+
+
 
 
 
@@ -410,7 +466,7 @@ exports.DeleteUser = CatchAsyncErrors(async(req,res,next)=>{
 //Add/Update the Product Review    --Only who are logged In
 exports.CreateProductReview=CatchAsyncErrors(async(req,res,next)=>{
   
-    console.log("rievew",req.body.productID)
+    // console.log("rievew",req.body.productID)
  
     const current_review ={
         user_Id:req.user.id,
@@ -421,11 +477,11 @@ exports.CreateProductReview=CatchAsyncErrors(async(req,res,next)=>{
 
     const target_product = await Product.findById(req.body.productID)
 
-    console.log(target_product)
+    // console.log(target_product)
 
-    console.log("Product review ",target_product.reviews);
+    // console.log("Product review ",target_product.reviews);
 
-    let isReviewed=false;
+     let isReviewed=false;
 
     await target_product.reviews.forEach((rev)=> {
     
@@ -437,18 +493,18 @@ exports.CreateProductReview=CatchAsyncErrors(async(req,res,next)=>{
     });
 
     let review_status="Added";
-    console.log(isReviewed)
+    // console.log(isReviewed)
     
     if(isReviewed)
     {
         review_status = "Updated"
-        console.log(isReviewed)
+        // console.log(isReviewed)
         //if already reveiwed then update the previous review by new one
 
         target_product.reviews.forEach((rev)=>{
 
 
-            console.log(rev.user_Id.toString(),req.user.id.toString())
+            // console.log(rev.user_Id.toString(),req.user.id.toString())
 
             if(rev.user_Id.toString()===req.user.id.toString())
             (rev.rating = current_review.rating),(rev.comment = current_review.comment);
@@ -461,13 +517,18 @@ exports.CreateProductReview=CatchAsyncErrors(async(req,res,next)=>{
     {
 
         //creatig new Review if not existing for specific user
+        console.log("hii",current_review,"hii")
         target_product.reviews.push(current_review)
-        console.log("review added",target_product.reviews,current_review)
+        // console.log("review added",target_product.reviews,current_review)
         target_product.numberOfReviews = target_product.reviews.length;
+
+
 
 
        
     }
+
+
 
     let sum=0;
     target_product.reviews.forEach((rev)=>{
@@ -476,13 +537,16 @@ exports.CreateProductReview=CatchAsyncErrors(async(req,res,next)=>{
    });
    
 
-   target_product.rating =sum /target_product.numberOfReviews;
+    target_product.rating =sum /target_product.numberOfReviews;
 
 
+    console.log(review_status)
 
     await target_product.save();
 
-
+    
+    console.log("hihoioi")
+   
     res.status(200).json({
         success:true,
         message:review_status

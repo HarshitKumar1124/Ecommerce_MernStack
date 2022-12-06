@@ -134,9 +134,9 @@ const changeVisibility3 =(e)=>{
       {loading?(<Loader/>):(
         <Fragment>
         <MetaData title="Change Password"/>
-        <div className='LoginSignupContainer'>
+        <div className='LoginSignupContainer' >
 
-            <div className='LoginSignUpBox'>
+            <div className='LoginSignUpBox' style={{boxShadow: "0 0 10px rgba(0,0,0,0.267)",borderRadius:"7%"}}>
 
                <h1>Update Password</h1>
                 <form onSubmit={UpdatePasswordSubmit} className='UpdatePasswordForm'>

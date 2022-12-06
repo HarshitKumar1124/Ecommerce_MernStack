@@ -1,6 +1,17 @@
 import axios from 'axios'
 
-import { UPDATE_PROFILE_Request,UPDATE_PROFILE_success,UPDATE_PROFILE_fail,UPDATE_PROFILE_Reset,LOGOUT_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success,LoadUser_Request,LoadUser_fail,LoadUser_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success, LOGOUT_fail} from "../Redux_Constants/UserConstants";
+import { UPDATE_PROFILE_Request,
+    UPDATE_PROFILE_success,
+    UPDATE_PROFILE_fail,
+    UPDATE_PROFILE_Reset,
+
+    UPDATE_ShippingInfo_Request,
+    UPDATE_ShippingInfo_success,
+    UPDATE_ShippingInfo_fail,
+    UPDATE_ShippingInfo_Reset,
+
+
+    LOGOUT_success,UserLOGIN_Request,UserLOGIN_fail,UserLOGIN_success,LoadUser_Request,LoadUser_fail,LoadUser_success, Clear_errors ,UserREGISTER_Request,UserREGISTER_fail,UserREGISTER_success, LOGOUT_fail} from "../Redux_Constants/UserConstants";
 
 import {UPDATE_Password_Request,
     UPDATE_Password_success,
@@ -19,7 +30,12 @@ import {UPDATE_Password_Request,
     Delete_User_Request,
     Delete_User_success,
     Delete_User_fail,
-    Delete_User_Reset} from "../Redux_Constants/UserConstants"
+    Delete_User_Reset,
+
+
+    Get_Specific_User_Detail_REQUEST,
+    Get_Specific_User_Detail_SUCCESS,
+    Get_Specific_User_Detail_FAIL} from "../Redux_Constants/UserConstants"
 
 
 
@@ -142,6 +158,30 @@ export const userUpdate = (UserNEWData)=>async(dispatch)=>{
     catch(error)
     {
         dispatch({type:UPDATE_PROFILE_fail,payload:error.response.data.message})
+    }
+
+}
+
+
+//Update Shipping Info of User --LoggedIN
+export const UpdateShippingInfo = (UserShippingInfo)=>async(dispatch)=>{
+
+    try{
+        dispatch({type: UPDATE_ShippingInfo_Request});
+        console.log("UPDATE_ShippingInfo post")
+  
+        const {data} =await axios.put(`/api/v1/MyProfile/update/ShippingInfo`,UserShippingInfo);
+        console.log('Updated',data)
+       
+        dispatch({
+            type:UPDATE_ShippingInfo_success,
+            payload:true
+        })
+
+    }
+    catch(error)
+    {
+        dispatch({type:UPDATE_ShippingInfo_fail,payload:error.response.data.message})
     }
 
 }
@@ -303,4 +343,32 @@ export const DeleteUser = (id)=>async(dispatch)=>{
             
         })
     }
+}
+
+
+
+//To get User specific Information
+export const UserDetailFetcher =(id)=>async(dispatch)=>{
+
+    try{
+        dispatch({type: Get_Specific_User_Detail_REQUEST})
+        console.log("User Info Lene Aa gaya")
+
+        const {data} = await axios.get(`/api/v1/admin/Users/${id}`);
+
+        console.log("Info AA gaya",data.SingleUserInfo);
+
+        dispatch({
+            type:Get_Specific_User_Detail_SUCCESS,
+            payload:data.SingleUserInfo,
+        })
+    }
+    catch(error)
+    {
+        dispatch({
+            type:Get_Specific_User_Detail_FAIL,
+            payload:error.response.data.message
+        })
+    }
+
 }

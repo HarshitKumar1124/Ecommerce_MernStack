@@ -8,6 +8,7 @@ import "./ForgetPassword.css"
 
 import {forgetPassword} from "../../Redux_Actions/UserAction"
 import { ClearError } from '../../Redux_Actions/ProductAction';
+import { useNavigate } from 'react-router-dom';
 
 const ForgetPassword = () => {
 
@@ -18,7 +19,8 @@ const ForgetPassword = () => {
     const alert = useAlert();
 
     const dispatch=useDispatch();
-
+ 
+    const Navigate = useNavigate();
 
     useEffect(() => {
 
@@ -32,6 +34,7 @@ const ForgetPassword = () => {
         {
             alert.success(message)
             setEmail("")
+            Navigate("/login_signup")
         }
     
     },[error,dispatch,message])

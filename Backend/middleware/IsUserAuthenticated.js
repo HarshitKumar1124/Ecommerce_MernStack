@@ -22,11 +22,11 @@ exports.IsUserAuthenticated = CatchAsyncErrors(async(req,res,next)=>{
     //Fetching Current token from Local_cookie_storage file
     const token=fs.readFileSync("cookie_local_storage.txt","utf8")
 
-    console.log(`current token fetched from local_cookie_storage is: ${token}`)
+    // console.log(`current token fetched from local_cookie_storage is: ${token}`)
 
     if(!token)
     {
-        console.log("error de raha")
+        // console.log("error de raha")
         return next(new ErrorHandler('Please Login First to use this resource',401))
 
     }
@@ -35,7 +35,7 @@ exports.IsUserAuthenticated = CatchAsyncErrors(async(req,res,next)=>{
 
     const decodedData = jwt.verify(token,JWT_SECRET);
 
-    console.log(decodedData)
+    // console.log(decodedData)
 
     loginUserInfo= await User.findById(decodedData.id) 
 
@@ -50,7 +50,7 @@ exports.AuthoriseRole=(...roles)=>{
     return (req,res,next)=>{
 
 
-        console.log(loginUserInfo,roles)
+        // console.log(loginUserInfo,roles)
 
         if(!roles.includes(loginUserInfo.userType))
         {

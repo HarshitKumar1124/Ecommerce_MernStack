@@ -20,14 +20,27 @@
     margin:.5vmax 0vmax;
 }
 
-.productListTable a:hover{
+.productListTable a:hover,.OrderListTable a:hover{
 
 color: green;
     
 }
 
-.productListTable Button:hover{
+.productListTable Button:hover,.OrderListTable Button:hover{
 
     color: red;
         
     }
+
+
+/* .StatusProcessing{
+    color:red
+}
+
+.StatusDelivered{
+    color:green
+} */
+
+.StatusColor{
+    color:rgb(255, 47, 0)
+}

@@ -22,7 +22,7 @@ router.route("/orders/Myorder").get(IsUserAuthenticated, MyOrder);
 
 
 //See All the list Of Orders Together By All Users  --ADMIN
-router.route("/orders").get(IsUserAuthenticated,AuthoriseRole("admin"),getAllOrders);
+router.route("/Admin_OrdersList").get(IsUserAuthenticated,AuthoriseRole("admin"),getAllOrders);
 
 
 //Update The Status Of The Order   ---ADMIN

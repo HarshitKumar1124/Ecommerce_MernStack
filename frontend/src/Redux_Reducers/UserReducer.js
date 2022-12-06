@@ -20,7 +20,19 @@ import {UPDATE_Password_Request,
     Delete_User_Request,
     Delete_User_success,
     Delete_User_fail,
-    Delete_User_Reset} from "../Redux_Constants/UserConstants";
+    Delete_User_Reset,
+
+
+
+    UPDATE_ShippingInfo_Request,
+    UPDATE_ShippingInfo_success,
+    UPDATE_ShippingInfo_fail,
+    UPDATE_ShippingInfo_Reset,
+
+
+    Get_Specific_User_Detail_REQUEST,
+    Get_Specific_User_Detail_SUCCESS,
+    Get_Specific_User_Detail_FAIL} from "../Redux_Constants/UserConstants";
 
 
 
@@ -92,6 +104,7 @@ export const userUpdateProfile = (state={},action)=>{
     {
         case UPDATE_PROFILE_Request:
         case UPDATE_Password_Request:
+        case UPDATE_ShippingInfo_Request:
             return{
                 
                 ...state,
@@ -101,6 +114,7 @@ export const userUpdateProfile = (state={},action)=>{
             };
         case UPDATE_PROFILE_success: 
         case UPDATE_Password_success:
+        case UPDATE_ShippingInfo_success:
             return{
                 ...state,
                 loading:false,
@@ -108,6 +122,7 @@ export const userUpdateProfile = (state={},action)=>{
             };
         case UPDATE_PROFILE_fail:
         case UPDATE_Password_fail:
+        case UPDATE_ShippingInfo_fail:
             return{
                 ...state,
                 loading:false,
@@ -116,6 +131,7 @@ export const userUpdateProfile = (state={},action)=>{
             };
         case UPDATE_PROFILE_Reset:
         case UPDATE_Password_Reset:
+        case UPDATE_ShippingInfo_Reset:
             return {
                 ...state,
                 isUpdated:false
@@ -256,5 +272,44 @@ export const DeleteUser_Reducer=(state={},action)=>{
 
     }
 
+
+}
+
+
+//For fetching specific user informations
+export const User_DetailReducer=(state={USerInfo:{}},action)=>{
+
+    
+    switch (action.type) {
+        case  Get_Specific_User_Detail_REQUEST:
+            
+            return{
+                loading:true,
+                ...state,
+            }
+
+        case  Get_Specific_User_Detail_FAIL:
+        
+            return{
+                loading:false,
+                error:action.payload
+            }
+        case  Get_Specific_User_Detail_SUCCESS:
+        
+            return{
+                loading:false,
+                userDetail:action.payload
+                
+            } 
+        case Clear_errors:
+    
+                return{
+                ...state,
+                error:null
+            }        
+    
+        default:
+            return state;
+    }
 
 }

@@ -84,7 +84,7 @@ const DisplayList = ({ ToDisplay, item }) => {
       renderCell: (params) => {
         return (
           <>
-            <Link tag="a" to={`/products`}>
+            <Link tag="a" to={`/products_Update/${params.id}`}>
               <EditIcon />
             </Link>
             <Button onClick={()=>DeleteProductHandler(params.getValue(params.id,'id'))}>

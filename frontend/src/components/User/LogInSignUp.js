@@ -1,5 +1,5 @@
 import React, { useState,Fragment,useRef ,useEffect} from 'react'
-import {Link, Navigate} from 'react-router-dom'
+import {Link, Navigate, useParams} from 'react-router-dom'
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -29,6 +29,14 @@ const LogInSignUp = () => {
 
     const alert = useAlert();
 
+    const fetchPath = useParams();
+
+
+    const redirectLink =  window.location.search ? window.location.search.split("=")[1] : "/MyProfile"
+
+    
+
+
     useEffect(() => {
       
         if(error)
@@ -40,7 +48,7 @@ const LogInSignUp = () => {
         }
 
         if(isAuthenticated)
-        Navigate('/MyProfile')
+        Navigate(redirectLink)
 
     }, [dispatch,error,isAuthenticated])
     

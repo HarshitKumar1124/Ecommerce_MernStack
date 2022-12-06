@@ -52,13 +52,14 @@ const AllProducts = () => {
     // Category Filter
 
     const CategoryList = [
-        'Beast',
-        'Footwear',
-        'Angel',
-        'Tops',
-        'Attire',
+        'Books',
+        'Footwears',
+        'Laptops',
+        'Bags',
+        'Toy',
         'Camera',
-        'SmartPhones'
+        'Smartphones',
+        'Fashion'
     ];
 
     const [Category,SetCategory] =useState('');
@@ -124,7 +125,8 @@ const AllProducts = () => {
                    {value:12000,label:"Rs 12000"},
                    {value:13000,label:"Rs 13000"},
                    {value:14000,label:"Rs 14000"},
-                   {value:15000,label:"Rs 15000"}]}
+                   {value:15000,label:"Rs 15000"},
+                   {value:80000,label:"Rs 80000"}]}
                    />
                 </div>
                 </div>
@@ -148,7 +150,7 @@ const AllProducts = () => {
                     </div>
 
                 </div>
-
+{/* 
                 {
                     fetchParams.keyword==""?requiredLength=productsCount:requiredLength=filterTotalCountProduct
                 }
@@ -168,7 +170,7 @@ const AllProducts = () => {
                     activeClass='pageItemActive'
                     activeLinkClass='pageLinkActive'
                     />
-                </div>
+                </div> */}
             </Fragment>
         )}
 

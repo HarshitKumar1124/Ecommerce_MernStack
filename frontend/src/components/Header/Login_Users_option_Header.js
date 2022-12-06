@@ -6,7 +6,9 @@ import {SpeedDial,SpeedDialAction} from '@material-ui/lab'
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PersonIcon from '@material-ui/icons/Person';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
@@ -14,7 +16,7 @@ import { useNavigate } from 'react-router';
 
 import { useAlert } from 'react-alert';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {userLogOut} from "../../Redux_Actions/UserAction"
 
@@ -22,6 +24,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 
 
 const Login_Users_option_Header = ({user}) => {
+const {cartItems} = useSelector((state)=>state.cart)
   
   const [Open,setOpen] = useState(false)
 
@@ -35,7 +38,7 @@ const Login_Users_option_Header = ({user}) => {
 
   const Orders=()=>{
 
-    Navigate("/Orders")
+    Navigate("/orders")
 
   }
 
@@ -48,7 +51,7 @@ const Login_Users_option_Header = ({user}) => {
   const logOut=()=>{
 
     dispatch(userLogOut())
-    Navigate("/login_signup")
+    Navigate("/")
     alert.show('LogOut SuccessFully !')
     
   
@@ -60,6 +63,12 @@ const Login_Users_option_Header = ({user}) => {
     Navigate("/dash_board")
   }
 
+  const Cart=()=>{
+
+    Navigate("/cart")
+  }
+
+
 
 
 
@@ -68,6 +77,7 @@ const Login_Users_option_Header = ({user}) => {
   let actions =[
     {icon: <ListAltIcon/> ,name:"Orders",func:Orders},
     {icon: <PersonIcon/> ,name:"Profile",func:Profile},
+    {icon: <ShoppingCartIcon/>,name:`Cart(${cartItems.length})`,func:Cart},
     {icon: <ExitToAppIcon/> ,name:"logOut",func:logOut}
   ]
 
@@ -89,7 +99,8 @@ const Login_Users_option_Header = ({user}) => {
       onOpen={()=>setOpen(true)}
       open={Open}
       style={{position:"fixed",right:30,bottom:20,zIndex:11}}
-      icon={user.profilePic.image_url!=="imageURL"?<img src={user.profilePic.image_url} alt={`${user.name} Profile Icon`} className="SpeedDialIcon" title={`${user.name} Profile Icon`} />:<AccountBoxIcon/>}
+      icon={<AccountBoxIcon/>}
+      // user.profilePic.image_url!=="imageURL"?<img src={user.profilePic.image_url} alt={`${user.name} Profile Icon`} className="SpeedDialIcon" title={`${user.name} Profile Icon`} />
       >
         {actions.map((action) => (
         <SpeedDialAction

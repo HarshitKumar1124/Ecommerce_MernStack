@@ -9,6 +9,9 @@ import './Profile.css'
 import IronMan from '../../IronMan.jpg'
 
 import Tilt from 'react-tilt'
+import { Typography,Button } from '@material-ui/core';
+import GitHubIcon from "@material-ui/icons/GitHub"
+import LinkedInIcon from "@material-ui/icons/LinkedIn"
 
 
 
@@ -35,24 +38,47 @@ const Profile = ({user}) => {
             <div>
 
                 <div>
-                    <h4>FullName</h4>
+                    <h4>FullName : </h4>
                     <p>{user.name}</p>
                 </div>
 
                 <div>
-                    <h4>Email</h4>
+                    <h4>Email : </h4>
                     <p>{user.email}</p>
                 </div>
 
+                <Typography>Shipping Information</Typography>
+
                 <div>
-                    <h4>Joined On</h4>
+                    <h4>Address : </h4>
+                  
+                    <p>{`${user.shippingInfo.Locality} ${user.shippingInfo.City} ${user.shippingInfo.State} ${user.shippingInfo.CountryName}`}</p>
+                </div>
+
+                <Typography>Social Handles</Typography>
+
+                <div>
+                    <GitHubIcon/>
+                    <Link tag="a" to={user.socialHandles.GitHub} title="Visit GitHub">{user.socialHandles.GitHub!=="" ?user.socialHandles.GitHub:"N/A"}</Link>
+                </div>
+
+                <div>
+                    <LinkedInIcon/>
+                    <Link tag="a" to={user.socialHandles.LinkedIN} title="Visit LinkedIN">{user.socialHandles.LinkedIN !=="" ?user.socialHandles.LinkedIN : "N/A"}</Link>
+                </div>
+                
+
+                
+
+                <div>
+                    <h4>Joined On : </h4>
                     <p>{String(user.createdAt).substr(0,10)}</p>
                 </div>
 
                 <div>
-                    <Link tag="a" to="/Orders">My Orders</Link>
-                    <Link tag="a" to ="/password/update">Change Password</Link>
-                </div>
+                 <Button><Link tag="a" to="/Orders">My Orders</Link></Button>   
+                 <Button><Link tag="a" to ="/password/update">Change Password</Link></Button>   
+                 </div>
             
             </div>
 

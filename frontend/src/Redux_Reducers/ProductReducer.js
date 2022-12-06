@@ -15,7 +15,18 @@ import { All_Product_Request,
     ADMIN_All_Product_fail,
     DELETE_Product_Request,
     DELETE_Product_success,
-    DELETE_Product_fail,DELETE_Product_Reset} from "../Redux_Constants/ProductConstants";
+    DELETE_Product_fail,DELETE_Product_Reset,
+    UPDATE_REQUEST,
+    UPDATE_SUCCESS,
+    UPDATE_FAIL,
+    UPDATE_RESET,
+
+
+    NEW_REVIEW_REQUEST,
+    NEW_REVIEW_SUCCESS,
+    NEW_REVIEW_FAIL,
+    NEW_REVIEW_RESET
+} from "../Redux_Constants/ProductConstants";
 
 
 export const productReducer = (state={products:[]},action)=>{
@@ -24,6 +35,7 @@ export const productReducer = (state={products:[]},action)=>{
     switch (action.type) {
         case All_Product_Request:
         case ADMIN_All_Product_Request:
+        
             
             return{
                 loading:true,
@@ -34,6 +46,7 @@ export const productReducer = (state={products:[]},action)=>{
 
         case All_Product_fail:
         case ADMIN_All_Product_fail:
+       
         
             return{
                 loading:false,
@@ -143,12 +156,13 @@ export const New_Product_Reducer=(state={product:{}},action)=>{
 }
 
 
-
+//Used For  Delete The Product
 export const DeleteProduct_Reducer=(state={},action)=>{
 
     switch(action.type)
     {
         case DELETE_Product_Request:
+
             return {
                 ...state,
                 loading:true,
@@ -161,11 +175,14 @@ export const DeleteProduct_Reducer=(state={},action)=>{
                
             };
         case DELETE_Product_fail:
+
             return{
                 ...state,
                 loading:false,
                 error:action.payload
             };
+
+        
             case DELETE_Product_Reset:
                 return{
                     ...state,
@@ -183,3 +200,99 @@ export const DeleteProduct_Reducer=(state={},action)=>{
 
 
 }
+
+
+
+
+
+//Used For Update The Product
+export const UpdateProduct_Reducer=(state={},action)=>{
+
+    switch(action.type)
+    {
+        
+        case UPDATE_REQUEST:
+            return {
+                ...state,
+                loading:true,
+            };
+   
+        case UPDATE_FAIL:
+            return{
+                ...state,
+                loading:false,
+                error:action.payload
+            };
+
+        case UPDATE_SUCCESS:
+            return{
+                ...state,
+                loading:false,
+                isUpdated:action.payload
+            };
+
+        case UPDATE_RESET:
+                return{
+                    ...state,
+                    isUpdated:false
+                };
+        case Clear_errors:
+            return{
+                ...state,
+                error:null,
+            };
+        default:
+            return state;
+
+    }
+
+
+}
+
+
+
+export const AddReview_Reducer=(state={},action)=>{
+
+    switch(action.type)
+    {
+        case NEW_REVIEW_REQUEST:
+            return {
+                ...state,
+                loading:true,
+            };
+        case NEW_REVIEW_SUCCESS:
+            return{
+                ...state,
+                loading:false,
+                success:action.payload
+               
+            };
+        case NEW_REVIEW_FAIL:
+            return{
+                ...state,
+                loading:false,
+                error:action.payload
+            };
+            case NEW_REVIEW_RESET:
+                return{
+                    ...state,
+                    success:false,
+                    loading:false
+                };
+        case Clear_errors:
+            return{
+                ...state,
+                error:null,
+            };
+        default:
+            return state;
+
+    }
+
+
+}
+
+
+
+
+

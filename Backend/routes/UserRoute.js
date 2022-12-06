@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router();
 
-const {RegisterUser,LoginUser,LogOutUser, forgotPassword,resetPassword, getUserDetails,UpdatePassword, UpdateProfile,GetAllUser,GetSingleUserInfo,DeleteUser,UpdateRole, CreateProductReview, GetSingleProductReviews,DeleteSingleProductReviews} = require('../controller/UserController');
+const {RegisterUser,LoginUser,LogOutUser, forgotPassword,resetPassword, getUserDetails,UpdatePassword, UpdateProfile,UpdateShippingInfo,GetAllUser,GetSingleUserInfo,DeleteUser,UpdateRole, CreateProductReview, GetSingleProductReviews,DeleteSingleProductReviews} = require('../controller/UserController');
 
 const {IsUserAuthenticated, AuthoriseRole} = require('../middleware/IsUserAuthenticated')
 
@@ -32,7 +32,17 @@ router.route("/MyProfile").get(IsUserAuthenticated,getUserDetails)
 router.route("/password/update").put(IsUserAuthenticated,UpdatePassword)
 
 //Update Profile Info -- Logged In Person Only
-router.route("/MyProfile/update").put(IsUserAuthenticated,UpdateProfile);
+router.route("/MyProfile/update").put(IsUserAuthenticated,UpdateProfile);  
+
+
+//Update Profile Shipping Address -- Logged In Person Only
+router.route("/MyProfile/update/ShippingInfo").put(IsUserAuthenticated,UpdateShippingInfo);
+
+
+
+
+
+
 
 //Get All User's Information  --Admin Only
 router.route("/admin/Users").get(IsUserAuthenticated,AuthoriseRole("admin"),GetAllUser);

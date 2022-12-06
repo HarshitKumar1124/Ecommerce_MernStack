@@ -75,14 +75,20 @@ const Home = () => {
       <h2 className="HomeHeading">Featured Products</h2>
 
       <div className="container" id="container">
+
+        <h1>Move To Product Page For View Products</h1>
         
-      {
-        typeof(product)==="undefined" ? <ProductCard Product={Temp_product} />:(
-          product.map(item=>{
-            return <ProductCard Product={item} key={item._id} />;
-          })
-        )
-      }
+      {/* {
+        product ? <></>:<>{
+           (
+            product.map(item=>{
+              return <ProductCard Product={item} key={item._id} />;
+            })
+          )
+        } </>
+      } */}
+
+{/* <ProductCard Product={Temp_product} /> */}
        
 
      

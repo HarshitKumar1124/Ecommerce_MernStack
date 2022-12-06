@@ -1,37 +1,56 @@
-import {ADD_TO_CART} from "../Redux_Constants/CartConstant"
+import {ADD_TO_CART,REMOVE_CART_ITEM,SAVE_SHIPPING_INFO} from "../Redux_Constants/CartConstant"
 
-export const CartReducer =(state={cartItem:[]},action)=>{
+export const CartReducer =(state={cartItems:[],ShippingInfo:{}},action)=>{
 
     switch(action.type)
     {
         case ADD_TO_CART:
+            console.log("HII REDUCER")
             const item_to_add = action.payload;
 
      
-            const isItemExist = state.cartItem.find((element)=> element.productID=== item_to_add.productID)
+            console.log(item_to_add)
+            const isItemExist = state.cartItems.filter((element)=> element.productID== item_to_add.productID)
                       
-
-            console.log("HII REDUCER")
-            if(isItemExist)
+            console.log(state)
+            console.log("jooo",isItemExist.length)
+            
+            if(isItemExist.length)
             {
                 return {
                     ...state,
-                    cartItem:state.cartItem.map((i)=>i.productID===isItemExist.productID ? item_to_add:i)
+                    cartItems:state.cartItems.map((i)=>i.productID===isItemExist.productID ? item_to_add:i)
                 }
             }
             else
             {
                 return {
                     ...state,
-                    cartItem:[...state.cartItem,item_to_add]
+                    cartItems:[...state.cartItems,item_to_add]
                 }
             }
     
     
-    
+        case REMOVE_CART_ITEM:
+
+            console.log("remove reducer")
+            return {
+                ...state,
+                cartItems:state.cartItems.filter(items=> items.productID!==action.payload),
+            }
+
+        case SAVE_SHIPPING_INFO:
+            return {
+                ...state,
+                ShippingInfo:action.payload
+            }
+
+
         default:
             return {
                 ...state
             }
+    
+    
     }
 }

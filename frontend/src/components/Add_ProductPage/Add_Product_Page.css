@@ -10,7 +10,8 @@
 }
 
 .Add_Product_Details{
-    border: 2px solid black;
+    box-shadow: 0 0 10px black;
+    border-radius: 7%;
     align-self: center;
     display: flex;
     flex-direction: column;

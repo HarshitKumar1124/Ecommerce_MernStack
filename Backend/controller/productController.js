@@ -13,8 +13,20 @@ exports.CreateProduct = CatchAysncError(async(req,res,next)=>{
 
     req.body.createdByUser = req.user.id;
 
+    console.log(req.body)
 
     const product = await Product.create(req.body);
+
+    console.log(product)
+
+    const link = req.body.link;
+    console.log(link)
+
+    product.productImage.push({public_ID:"ABCD",image_url:link})
+
+    await product.save()
+
+    console.log(product)
 
     res.status(200).json({
         success:true,
@@ -28,14 +40,14 @@ exports.CreateProduct = CatchAysncError(async(req,res,next)=>{
 exports.getAllProduct=CatchAysncError(async(req,res,next)=>{
     console.log('ss')
    
-    const ProductToShow_PerPage = 5;
+    const ProductToShow_PerPage = 20;
 
     const product_count = await Product.countDocuments();
    
     const Apifeature = new ApiFeatures(Product.find(),req.query).search().filter().pagination(ProductToShow_PerPage);
     // const Allproducts = await Product.find();
     //  or we cn write now as:
-    console.log('ss')
+    // console.log('ss')
     const Allproducts = await Apifeature.query;
 
     console.log(Allproducts)
@@ -61,6 +73,9 @@ exports.getAllProduct=CatchAysncError(async(req,res,next)=>{
 
 //Update The Product --ADMIN ONLY
 exports.UpdateProduct = CatchAysncError(async(req,res,next)=>{
+
+
+    // console.log("UPDATE K LIYE AAYA KYA",res.params.id,req.body)
 
     let product = await Product.findById(req.params.id);
 
@@ -93,7 +108,7 @@ exports.DeleteProduct= CatchAysncError(async (req,res,next)=>{
     let product = await Product.findById(req.params.id);
     
 
-    console.log(product)
+    // console.log(product)
 
     if(!product)
     {
@@ -119,7 +134,7 @@ exports.GetSingleProductDetail = CatchAysncError(async (req,res,next)=>{
     
     let product = await Product.findById(req.params.id);
      
-    console.log(product)
+    // console.log(product)
 
     if(!product)
     {

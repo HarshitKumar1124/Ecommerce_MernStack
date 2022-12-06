@@ -15,7 +15,7 @@ router.route("/products/new").post(IsUserAuthenticated,AuthoriseRole("admin"),Cr
 
 
 //Update Product List 
-router.route("/products/:id").put(IsUserAuthenticated,AuthoriseRole("admin"),UpdateProduct);
+router.route("/products_Update/:id").put(IsUserAuthenticated,AuthoriseRole("admin"),UpdateProduct);
 
 
 //Delete Product 

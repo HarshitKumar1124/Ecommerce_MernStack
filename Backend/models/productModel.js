@@ -27,17 +27,16 @@ const productSchema = new mongoose.Schema({
 
     productImage: [
         {
-
             public_ID: {
                 type: String,
-                required: true,
+                required:true
 
             },
             image_url: {
                 type: String,
-                required: true,
+                required:true
             }
-        }
+        },
     ],
     category:{
         type:String,
@@ -64,14 +63,14 @@ const productSchema = new mongoose.Schema({
                 required:true
             },
             rating:{
-                type:String,
+                type:Number,
                 required:true
             },
             comment:{
                 type:String,
                 required:true
             }
-        }
+        },
      ],
       
     createdByUser:{

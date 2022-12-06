@@ -27,7 +27,7 @@ const Forget_Reset_Password = () => {
   const fetchParams = useParams()
 
 
-  const {error,loading,success} = useSelector(state => state.UpdateUser)
+  const {error,loading,success} = useSelector(state => state.forgetPassword)
 
   const [NewPassword,setNewPassword] = useState("")
   const [confirmPassword,setconfirmPassword] = useState("")
@@ -53,7 +53,7 @@ const Forget_Reset_Password = () => {
     if(success)
     {
       alert.success("Password Reset SuccessFully !")
-      Navigate("/login_signup")
+      Navigate("/")
 
     }
   }, [dispatch,error,success])
@@ -102,9 +102,8 @@ const ResetPasswordSubmit=(e)=>{
 
   console.log("jiii",error)
   dispatch(userPasswordReset({NewPassword,confirmPassword},fetchParams.token))
-  
-  alert("submitted")
-  console.log("ResetPasswordSubmit")
+ 
+
 }
 
   return (
